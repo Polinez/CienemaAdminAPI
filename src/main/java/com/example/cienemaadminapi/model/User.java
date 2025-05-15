@@ -1,9 +1,6 @@
 package com.example.cienemaadminapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -11,8 +8,14 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userId;
+
     private String username;
+    private String firstName;
+    private String surname;
     private String email;
     private String password;
+
+    @OneToMany
+    private List<Reservation> reservations;
 }

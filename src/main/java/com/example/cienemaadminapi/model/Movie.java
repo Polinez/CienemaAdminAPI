@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movie_id;
+    private Long movieId;
 
     private String title;
     private String description;
@@ -18,7 +20,7 @@ public class Movie {
     private String actor;
     private String year;
 
-    @ManyToOne
-    @JoinColumn(name = "projection_date_seans_id")
-    private Projection projection;
+    @OneToMany
+    //@JoinColumn(name = "projection_date_seans_id")
+    private List<Projection> projection;
 }
