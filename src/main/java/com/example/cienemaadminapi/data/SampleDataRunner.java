@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.boot.CommandLineRunner;
 
 @Component
-public class SampleDataRunner {
+public class SampleDataRunner implements CommandLineRunner{
 
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
@@ -30,8 +30,8 @@ public class SampleDataRunner {
         this.reservationRepository = reservationRepository;
     }
 
-    @Override
     @Transactional
+    @Override
     public void run(String... args) throws Exception {
         movieRepository.deleteAll();
         userRepository.deleteAll();

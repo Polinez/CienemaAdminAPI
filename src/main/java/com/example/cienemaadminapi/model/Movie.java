@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,6 @@ public class Movie {
     private String description;
     private String director;
     private String actor;
-    private String year;
 
     @OneToMany
     //@JoinColumn(name = "projection_date_seans_id")
