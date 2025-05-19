@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class MovieController {
+public class MainController {
 
-    @GetMapping("/movies")
-    public String movies() {
-        return "movies";
+    @GetMapping("/dashboard")
+    public String main() {
+        return "main";
     }
-
-
 }
