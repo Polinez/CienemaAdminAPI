@@ -12,6 +12,4 @@ public class MovieController {
     public String movies() {
         return "movies";
     }
-
-
 }

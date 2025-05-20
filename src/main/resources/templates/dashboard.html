@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Filmy</title>
+    <title>Panel administratora</title>
     <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="/navStyle.css">
-    <link rel="stylesheet" href="/moviesStyles.css">
+    <link rel="stylesheet" href="/navStyle.css" />
+    <link rel="stylesheet" href="/dashboardStyle.css" />
 
 </head>
 <body>
 <nav class="navbar">
     <ul>
-        <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
-        <li><a href="/admin/movies" class="active">🎬 Filmy</a></li>
+        <li><a href="/admin/dashboard" class="active">🏠 Dashboard</a></li>
+        <li><a href="/admin/movies">🎬 Filmy</a></li>
         <li><a href="/admin/projections">🗓️ Repertuar</a></li>
         <li><a href="/admin/reservations">🎟️ Bilety</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
@@ -22,11 +22,34 @@
 
 <main>
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Panel filmów</h1>
+        <h1 class="dashboard-title">Panel administratora kina</h1>
     </div>
 
-    <div class="list-of-movies">
-        <h2 class="section-title">Lista filmów</h2>
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon">🎟️</div>
+            <div class="stat-value">124</div>
+            <div class="stat-label">Dzisiejsze rezerwacje</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-value">5,240 zł</div>
+            <div class="stat-label">Dzisiejszy przychód</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🎬</div>
+            <div class="stat-value" >8</div>
+            <div class="stat-label">Aktywne filmy</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-value" >12</div>
+            <div class="stat-label">Dzisiejsze seanse</div>
+        </div>
+    </div>
+
+    <div class="recent-activity">
+        <h2 class="section-title">Ostatnie aktywności</h2>
         <ul class="activity-list">
             <li class="activity-item">
                 <span>Nowa rezerwacja na film "Avengers"</span>
@@ -47,23 +70,7 @@
         </ul>
     </div>
 
-    <div class="quick-actions">
-        <div class="action-card" onclick="window.location.href='/admin/movies/add'">
-            <div class="action-icon">➕</div>
-            <h3 class="action-title">Dodaj film</h3>
-            <p class="action-desc">Dodaj nowy film do bazy danych kina</p>
-        </div>
-        <div class="action-card" onclick="window.location.href='/admin/projections/add'">
-            <div class="action-icon">✏️</div>
-            <h3 class="action-title">Edytuj film</h3>
-            <p class="action-desc">Dodaj nowy seans filmowy do repertuaru</p>
-        </div>
-        <div class="action-card" onclick="window.location.href='/admin/reservations'">
-            <div class="action-icon">➖</div>
-            <h3 class="action-title">Usuń film</h3>
-            <p class="action-desc">Sprawdź i zarządzaj rezerwacjami biletów</p>
-        </div>
-    </div>
+
 </main>
 
 </body>
