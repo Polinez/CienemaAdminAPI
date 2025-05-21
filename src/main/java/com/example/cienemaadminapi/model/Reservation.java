@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,13 +16,9 @@ public class Reservation {
     private Long reservationId;
 
     private Long userId;
-    private Long seansId;
+    private Long projectionId;
 
-    //only one seat?
-    private Long seatsId;
-
-    //we should enum here for statuses
-    private String status;
-    
+    @ElementCollection
+    private List<Integer> seatsId;
 
 }
