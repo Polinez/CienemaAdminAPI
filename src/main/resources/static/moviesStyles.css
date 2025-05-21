@@ -1,3 +1,4 @@
+/*dodaj edytuj usun*/
 .quick-actions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -19,19 +20,19 @@
     transform: translateY(-5px);
 }
 
-.action-icon {
+.action-card div {
     font-size: 32px;
     color: #e74c3c;
     margin-bottom: 15px;
 }
 
-.action-title {
+.action-card h3 {
     font-size: 18px;
     color: #2c3e50;
     margin-bottom: 10px;
 }
 
-.action-desc {
+.action-card p {
     color: #7f8c8d;
     font-size: 14px;
 }
@@ -52,22 +53,23 @@
     border-bottom: 1px solid #eee;
 }
 
-.activity-list {
-    list-style: none;
+/*new table */
+.movie-table {
+    width: 100%;
+    border-collapse: collapse;
 }
-
-.activity-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
+.movie-table th{
+    background-color: #f8f9fa;
+    color: #343a40;
+    padding: 10px;
 }
-
-.activity-item:last-child {
-    border-bottom: none;
+.movie-table td {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
 }
-
-.activity-time {
-    color: #7f8c8d;
-    font-size: 12px;
+.movie-table tr:hover {
+    background-color: #f1f1f1;
+}
+.movie-table th, .movie-table td {
+    text-align: center;
 }

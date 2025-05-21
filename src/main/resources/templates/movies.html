@@ -27,41 +27,44 @@
 
     <div class="list-of-movies">
         <h2 class="section-title">Lista filmów</h2>
-        <ul class="activity-list">
-            <li class="activity-item">
-                <span>Nowa rezerwacja na film "Avengers"</span>
-                <span class="activity-time">5 minut temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Dodano nowy film "Dune: Part Two"</span>
-                <span class="activity-time">1 godzinę temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Użytkownik Jan Kowalski zarejestrował się</span>
-                <span class="activity-time">2 godziny temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Anulowano rezerwację #4587</span>
-                <span class="activity-time">3 godziny temu</span>
-            </li>
-        </ul>
+        <table class="movie-table">
+            <thead>
+                <tr>
+                    <th>Tytuł</th>
+                    <th>Gatunek</th>
+                    <th>Data premiery</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Avengers: Endgame</td>
+                    <td>Akcja, Sci-Fi</td>
+                    <td>2019-04-26</td>
+                </tr>
+                <tr>
+                    <td>Dune: Part Two</td>
+                    <td>Przygodowy, Sci-Fi</td>
+                    <td>2023-11-03</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="quick-actions">
         <div class="action-card" onclick="window.location.href='/admin/movies/add'">
-            <div class="action-icon">➕</div>
-            <h3 class="action-title">Dodaj film</h3>
-            <p class="action-desc">Dodaj nowy film do bazy danych kina</p>
+            <div>➕</div>
+            <h3>Dodaj film</h3>
+            <p>Dodaj nowy film do bazy danych kina</p>
         </div>
         <div class="action-card" onclick="window.location.href='/admin/projections/add'">
-            <div class="action-icon">✏️</div>
-            <h3 class="action-title">Edytuj film</h3>
-            <p class="action-desc">Dodaj nowy seans filmowy do repertuaru</p>
+            <div>✏️</div>
+            <h3>Edytuj film</h3>
+            <p>Dodaj nowy seans filmowy do repertuaru</p>
         </div>
         <div class="action-card" onclick="window.location.href='/admin/reservations'">
-            <div class="action-icon">➖</div>
-            <h3 class="action-title">Usuń film</h3>
-            <p class="action-desc">Sprawdź i zarządzaj rezerwacjami biletów</p>
+            <div>➖</div>
+            <h3>Usuń film</h3>
+            <p>Sprawdź i zarządzaj rezerwacjami biletów</p>
         </div>
     </div>
 </main>
