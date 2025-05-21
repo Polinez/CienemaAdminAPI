@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj film</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/navStyle.css">
+    <link rel="stylesheet" href="/addMovieStyle.css">
+</head>
+<body>
+<nav class="navbar">
+    <ul>
+        <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
+        <li><a href="/admin/movies" class="active">🎬 Filmy</a></li>
+        <li><a href="/admin/projections">🗓️ Repertuar</a></li>
+        <li><a href="/admin/reservations">🎟️ Bilety</a></li>
+        <li><a href="/admin/users">👥 Użytkownicy</a></li>
+        <li><a href="/">🚪 Wyloguj się</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Dodaj nowy film</h1>
+    </div>
+
+    <div class="movie-form-container">
+        <form th:action="@{/admin/movies/add}" method="post" class="movie-form">
+            <div class="form-group">
+                <label for="title">Tytuł filmu</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="director">Reżyser</label>
+                <input type="text" id="director" name="director" required>
+            </div>
+<!--Na razie zakomentowane inne pola jakbyśmy w przyszłości chcieli rozbudować-->
+<!--            <div class="form-group">-->
+<!--                <label for="genre">Gatunek</label>-->
+<!--                <select id="genre" name="genre" required>-->
+<!--                    <option value="" disabled selected>Wybierz gatunek</option>-->
+<!--                    <option value="Akcja">Akcja</option>-->
+<!--                    <option value="Komedia">Komedia</option>-->
+<!--                    <option value="Dramat">Dramat</option>-->
+<!--                </select>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label for="duration">Czas trwania (min)</label>-->
+<!--                <input type="number" id="duration" name="duration" min="1" required>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label for="releaseDate">Data premiery</label>-->
+<!--                <input type="date" id="releaseDate" name="releaseDate" required>-->
+<!--            </div>-->
+
+            <div class="form-group">
+                <label for="description">Opis</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="form-btn form-btn-primary">Dodaj film</button>
+                <button type="button" class="form-btn form-btn-secondary" onclick="window.location.href='/admin/movies'">Anuluj</button>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>
