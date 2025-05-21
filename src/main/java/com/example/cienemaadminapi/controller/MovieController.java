@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MovieController {
 
     @GetMapping("/movies")
-    public String movies() {
+    public String movies(Model model) {
+        List<Movie> movies = movieService.findAllMovies();
+        model.addAttribute("movies", movies);
         return "movies";
     }
 }

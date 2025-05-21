@@ -5,6 +5,7 @@
     <title>Seanse</title>
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/navStyle.css">
+    <link rel="stylesheet" href="/projectionsStyles.css">
 </head>
 <body>
 <nav class="navbar">
@@ -12,7 +13,6 @@
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
         <li><a href="/admin/movies">🎬 Filmy</a></li>
         <li><a href="/admin/projections" class="active">🗓️ Repertuar</a></li>
-        <li><a href="/admin/reservations">🎟️ Bilety</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
@@ -20,7 +20,53 @@
 
 <main>
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Panel filmów</h1>
+        <h1 class="dashboard-title">Panel Repertuarów</h1>
+    </div>
+
+    <div class="list">
+        <h2 class="section-title">Lista dostępnych seansów</h2>
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Gatunek</th>
+                <th>Data premiery</th>
+                <th>Zakupione bilety</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Avengers: Endgame</td>
+                <td>Akcja, Sci-Fi</td>
+                <td>2019-04-26</td>
+                <td><a href="/admin/reservations/id=1">Bilety</a></td>
+            </tr>
+            <tr>
+                <td>Dune: Part Two</td>
+                <td>Przygodowy, Sci-Fi</td>
+                <td>2023-11-03</td>
+                <td><a href="/admin/reservations/id=2">Bilety</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="quick-actions">
+        <div class="action-card" onclick="window.location.href='/admin/projections/add'">
+            <div>➕</div>
+            <h3>Dodaj seans</h3>
+            <p>Dodaj nowy seans do bazy danych kina</p>
+        </div>
+        <div class="action-card" onclick="window.location.href='/admin/projections/edit'">
+            <div>✏️</div>
+            <h3>Edytuj seans</h3>
+            <p>Edytuj wybrany seans</p>
+        </div>
+        <div class="action-card" onclick="window.location.href='/admin/projections/delete'">
+            <div>➖</div>
+            <h3>Usuń seans</h3>
+            <p>Wybierz i usuń seans</p>
+        </div>
     </div>
 </main>
 

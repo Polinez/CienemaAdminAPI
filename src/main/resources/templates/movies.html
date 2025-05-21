@@ -14,7 +14,6 @@
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
         <li><a href="/admin/movies" class="active">🎬 Filmy</a></li>
         <li><a href="/admin/projections">🗓️ Repertuar</a></li>
-        <li><a href="/admin/reservations">🎟️ Bilety</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
@@ -25,9 +24,9 @@
         <h1 class="dashboard-title">Panel filmów</h1>
     </div>
 
-    <div class="list-of-movies">
+    <div class="list">
         <h2 class="section-title">Lista filmów</h2>
-        <table class="movie-table">
+        <table class="list-table">
             <thead>
                 <tr>
                     <th>Tytuł</th>
@@ -56,15 +55,15 @@
             <h3>Dodaj film</h3>
             <p>Dodaj nowy film do bazy danych kina</p>
         </div>
-        <div class="action-card" onclick="window.location.href='/admin/projections/add'">
+        <div class="action-card" onclick="window.location.href='/admin/movies/edit'">
             <div>✏️</div>
             <h3>Edytuj film</h3>
-            <p>Dodaj nowy seans filmowy do repertuaru</p>
+            <p>Edytuj film, który już istnieje</p>
         </div>
-        <div class="action-card" onclick="window.location.href='/admin/reservations'">
+        <div class="action-card" onclick="window.location.href='/admin/movies/delete'">
             <div>➖</div>
             <h3>Usuń film</h3>
-            <p>Sprawdź i zarządzaj rezerwacjami biletów</p>
+            <p>Wybierz i usuń film</p>
         </div>
     </div>
 </main>
