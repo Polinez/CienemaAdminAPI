@@ -21,18 +21,20 @@ public class MovieController {
     }
 
     @GetMapping("/movies/add")
-    public String addMovie() {return "addMovie";}
-
-    @PutMapping("/movies/update/{id}")
-    public Movie updateMovie(@PathVariable Long id, @RequestBody Movie newMovie) {
-        return movieService.getMovieById(id)
-                .map(movie -> {
-                    movie.setTitle(newMovie.getTitle());
-                    movie.setDescription(newMovie.getDescription());
-                    movie.setDirector(newMovie.getDirector());
-                    movie.setProjection(newMovie.getProjection());
-                    return movieService.addMovie(movie);
-                })
-                .orElseThrow();
+    public String addMovie() {
+        return "addMovie";
     }
+
+    //@PutMapping("/movies/update/{id}")
+    //public Movie updateMovie(@PathVariable Long id, @RequestBody Movie newMovie) {
+    //    return movieService.getMovieById(id)
+    //            .map(movie -> {
+    //                movie.setTitle(newMovie.getTitle());
+    //                movie.setDescription(newMovie.getDescription());
+     //               movie.setDirector(newMovie.getDirector());
+     //               movie.setProjection(newMovie.getProjection());
+     //               return movieService.addMovie(movie);
+     //           })
+     //           .orElseThrow();
+    //}
 }
