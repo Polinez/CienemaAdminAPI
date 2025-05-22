@@ -12,6 +12,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.CommandLineRunner;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class SampleDataRunner implements CommandLineRunner{
 
@@ -38,5 +43,32 @@ public class SampleDataRunner implements CommandLineRunner{
         reservationRepository.deleteAll();
         movieRepository.deleteAll();
         // Add sample data here if needed
+
+        User user1 = insertUser(userRepository);
+        Movie starWars = new Movie("star wars", "abcabc", "Tarantino", 120);
+        starWars = movieRepository.save(starWars);
+        movieRepository.flush();
+        Projection projection = insertProjection(projectionRepository, starWars);
+        List<Integer> seats = new ArrayList<Integer>();
+        seats.add(15);
+        seats.add(16);
+        insertReservation(reservationRepository, user1, projection, seats, 32.00);
+    }
+
+
+    public User insertUser(UserRepository userRepository) {
+        User user1 = userRepository.save(new User("admin", "John", "Black", "admin", "admin"));
+        userRepository.save(new User("user", "Mark", "Red", "user", "user"));
+        userRepository.save(new User("user2", "Anthony", "White", "user2", "user2"));
+        return user1;
+    }
+
+    public Projection insertProjection(ProjectionRepository projectionRepository, Movie starWars) {
+        Projection projection = projectionRepository.save(new Projection(starWars, Date.valueOf("2025-07-15"), Time.valueOf("17:00:00"), 3));
+        return projection;
+    }
+
+    public void insertReservation(ReservationRepository reservationRepository, User user, Projection projection, List<Integer> seats, double price) {
+        reservationRepository.save(new Reservation(user, projection, seats, price));
     }
 }
