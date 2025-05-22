@@ -18,7 +18,6 @@ public class Movie {
     private String title;
     private String description;
     private String director;
-    //private String actor;
 
     @OneToMany
     //@JoinColumn(name = "projection_date_seans_id")

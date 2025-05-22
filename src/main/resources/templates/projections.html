@@ -28,24 +28,22 @@
         <table class="list-table">
             <thead>
             <tr>
-                <th>Tytuł</th>
-                <th>Gatunek</th>
-                <th>Data premiery</th>
-                <th>Zakupione bilety</th>
+                <th>Tytuł filmu</th>
+                <th>Data seansu</th>
+                <th>Godzina rozpoczęcia</th>
+                <th>Sala</th>
+                <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Avengers: Endgame</td>
-                <td>Akcja, Sci-Fi</td>
-                <td>2019-04-26</td>
-                <td><a href="/admin/reservations/id=1">Bilety</a></td>
-            </tr>
-            <tr>
-                <td>Dune: Part Two</td>
-                <td>Przygodowy, Sci-Fi</td>
-                <td>2023-11-03</td>
-                <td><a href="/admin/reservations/id=2">Bilety</a></td>
+            <tr th:each="projection : ${projections}">
+                <td th:text="${projection.movie.title}">Tytuł filmu</td>
+                <td th:text="${#temporals.format(projection.date, 'yyyy-MM-dd')}">Data seansu</td>
+                <td th:text="${#temporals.format(projection.startTime, 'HH:mm')}">Godzina</td>
+                <td th:text="${projection.roomNumber}">Sala</td>
+                <td>
+                    <a th:href="@{'/admin/reservations?id=' + ${projection.seansId}}">Bilety</a>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -28,23 +28,18 @@
         <h2 class="section-title">Lista filmów</h2>
         <table class="list-table">
             <thead>
-                <tr>
-                    <th>Tytuł</th>
-                    <th>Gatunek</th>
-                    <th>Data premiery</th>
-                </tr>
+            <tr>
+                <th>Tytuł</th>
+                <th>Reżyser</th>
+                <th>Opis</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Avengers: Endgame</td>
-                    <td>Akcja, Sci-Fi</td>
-                    <td>2019-04-26</td>
-                </tr>
-                <tr>
-                    <td>Dune: Part Two</td>
-                    <td>Przygodowy, Sci-Fi</td>
-                    <td>2023-11-03</td>
-                </tr>
+            <tr th:each="movie : ${movies}">
+                <td th:text="${movie.title}">Tytuł filmu</td>
+                <td th:text="${movie.director}">Reżyser</td>
+                <td th:text="${movie.description}">Opis filmu</td>
+            </tr>
             </tbody>
         </table>
     </div>
