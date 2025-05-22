@@ -16,7 +16,7 @@ public class Projection {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "movieId")
+    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
     private Date date;

@@ -14,6 +14,7 @@ import java.util.List;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id")
     private Long id;
 
     private String title;
@@ -21,9 +22,9 @@ public class Movie {
     private String director;
     private int duration;
 
-    @OneToMany
-    @JoinColumn(name = "projectionId")
-    private List<Projection> projection;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "projectionId")
+    private List<Projection> projections;
 
     public Movie() {
     }
