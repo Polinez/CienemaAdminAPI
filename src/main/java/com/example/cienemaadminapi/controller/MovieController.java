@@ -12,4 +12,7 @@ public class MovieController {
     public String movies() {
         return "movies";
     }
+
+    @GetMapping("/movies/add")
+    public String addMovie() {return "addMovie";}
 }
