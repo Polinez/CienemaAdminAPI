@@ -42,33 +42,25 @@ public class SampleDataRunner implements CommandLineRunner{
         projectionRepository.deleteAll();
         reservationRepository.deleteAll();
         movieRepository.deleteAll();
-        // Add sample data here if needed
 
-        User user1 = insertUser(userRepository);
-        Movie starWars = new Movie("star wars", "abcabc", "Tarantino", 120);
-        starWars = movieRepository.save(starWars);
-        movieRepository.flush();
-        Projection projection = insertProjection(projectionRepository, starWars);
+        User user1 = userRepository.save(new User("admin", "John", "Black", "admin", "admin"));
+        User user2 = userRepository.save(new User("user", "Mark", "Red", "user", "user"));
+        User user3 = userRepository.save(new User("user2", "Anthony", "White", "user2", "user2"));
+
+        Movie movie1 = movieRepository.save(new Movie("Star Wars", "abcabc", "Tarantino", 120));
+        Movie movie2 = movieRepository.save(new Movie("Harry Potter", "abcabc", "Python", 90));
+        Movie movie3 = movieRepository.save(new Movie("Forrest Gump", "abcabc", "Allen", 70));
+
+        Projection projection1 = projectionRepository.save(new Projection(movie1, Date.valueOf("2025-07-15"), Time.valueOf("17:00:00"), 3));
+        Projection projection2 = projectionRepository.save(new Projection(movie2, Date.valueOf("2025-05-28"), Time.valueOf("21:00:00"), 1));
+        Projection projection3 = projectionRepository.save(new Projection(movie3, Date.valueOf("2025-06-05"), Time.valueOf("18:00:00"), 2));
+
         List<Integer> seats = new ArrayList<Integer>();
         seats.add(15);
         seats.add(16);
-        insertReservation(reservationRepository, user1, projection, seats, 32.00);
-    }
 
-
-    public User insertUser(UserRepository userRepository) {
-        User user1 = userRepository.save(new User("admin", "John", "Black", "admin", "admin"));
-        userRepository.save(new User("user", "Mark", "Red", "user", "user"));
-        userRepository.save(new User("user2", "Anthony", "White", "user2", "user2"));
-        return user1;
-    }
-
-    public Projection insertProjection(ProjectionRepository projectionRepository, Movie starWars) {
-        Projection projection = projectionRepository.save(new Projection(starWars, Date.valueOf("2025-07-15"), Time.valueOf("17:00:00"), 3));
-        return projection;
-    }
-
-    public void insertReservation(ReservationRepository reservationRepository, User user, Projection projection, List<Integer> seats, double price) {
-        reservationRepository.save(new Reservation(user, projection, seats, price));
+        reservationRepository.save(new Reservation(user1, projection1, seats, 32.00));
+        reservationRepository.save(new Reservation(user2, projection2, seats, 19.00));
+        reservationRepository.save(new Reservation(user3, projection3, seats, 26.00));
     }
 }
