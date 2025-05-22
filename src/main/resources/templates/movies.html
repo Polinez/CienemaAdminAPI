@@ -14,7 +14,6 @@
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
         <li><a href="/admin/movies" class="active">🎬 Filmy</a></li>
         <li><a href="/admin/projections">🗓️ Repertuar</a></li>
-        <li><a href="/admin/reservations">🎟️ Bilety</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
@@ -25,43 +24,41 @@
         <h1 class="dashboard-title">Panel filmów</h1>
     </div>
 
-    <div class="list-of-movies">
+    <div class="list">
         <h2 class="section-title">Lista filmów</h2>
-        <ul class="activity-list">
-            <li class="activity-item">
-                <span>Nowa rezerwacja na film "Avengers"</span>
-                <span class="activity-time">5 minut temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Dodano nowy film "Dune: Part Two"</span>
-                <span class="activity-time">1 godzinę temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Użytkownik Jan Kowalski zarejestrował się</span>
-                <span class="activity-time">2 godziny temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Anulowano rezerwację #4587</span>
-                <span class="activity-time">3 godziny temu</span>
-            </li>
-        </ul>
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Reżyser</th>
+                <th>Opis</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="movie : ${movies}">
+                <td th:text="${movie.title}">Tytuł filmu</td>
+                <td th:text="${movie.director}">Reżyser</td>
+                <td th:text="${movie.description}">Opis filmu</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="quick-actions">
         <div class="action-card" onclick="window.location.href='/admin/movies/add'">
-            <div class="action-icon">➕</div>
-            <h3 class="action-title">Dodaj film</h3>
-            <p class="action-desc">Dodaj nowy film do bazy danych kina</p>
+            <div>➕</div>
+            <h3>Dodaj film</h3>
+            <p>Dodaj nowy film do bazy danych kina</p>
         </div>
-        <div class="action-card" onclick="window.location.href='/admin/projections/add'">
-            <div class="action-icon">✏️</div>
-            <h3 class="action-title">Edytuj film</h3>
-            <p class="action-desc">Dodaj nowy seans filmowy do repertuaru</p>
+        <div class="action-card" onclick="window.location.href='/admin/movies/edit'">
+            <div>✏️</div>
+            <h3>Edytuj film</h3>
+            <p>Edytuj film, który już istnieje</p>
         </div>
-        <div class="action-card" onclick="window.location.href='/admin/reservations'">
-            <div class="action-icon">➖</div>
-            <h3 class="action-title">Usuń film</h3>
-            <p class="action-desc">Sprawdź i zarządzaj rezerwacjami biletów</p>
+        <div class="action-card" onclick="window.location.href='/admin/movies/delete'">
+            <div>➖</div>
+            <h3>Usuń film</h3>
+            <p>Wybierz i usuń film</p>
         </div>
     </div>
 </main>

@@ -14,7 +14,6 @@
         <li><a href="/admin/dashboard" class="active">🏠 Dashboard</a></li>
         <li><a href="/admin/movies">🎬 Filmy</a></li>
         <li><a href="/admin/projections">🗓️ Repertuar</a></li>
-        <li><a href="/admin/reservations">🎟️ Bilety</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
@@ -48,26 +47,29 @@
         </div>
     </div>
 
-    <div class="recent-activity">
+    <div class="list">
         <h2 class="section-title">Ostatnie aktywności</h2>
-        <ul class="activity-list">
-            <li class="activity-item">
-                <span>Nowa rezerwacja na film "Avengers"</span>
-                <span class="activity-time">5 minut temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Dodano nowy film "Dune: Part Two"</span>
-                <span class="activity-time">1 godzinę temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Użytkownik Jan Kowalski zarejestrował się</span>
-                <span class="activity-time">2 godziny temu</span>
-            </li>
-            <li class="activity-item">
-                <span>Anulowano rezerwację #4587</span>
-                <span class="activity-time">3 godziny temu</span>
-            </li>
-        </ul>
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Gatunek</th>
+                <th>Data premiery</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Avengers: Endgame</td>
+                <td>Akcja, Sci-Fi</td>
+                <td>2019-04-26</td>
+            </tr>
+            <tr>
+                <td>Dune: Part Two</td>
+                <td>Przygodowy, Sci-Fi</td>
+                <td>2023-11-03</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 
