@@ -5,6 +5,7 @@ import com.example.cienemaadminapi.model.User;
 import com.example.cienemaadminapi.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
@@ -23,6 +24,13 @@ public class UserController {
     @GetMapping("/users")
     public String users(Model model) {
         List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "users";
+    }
+
+    @GetMapping("/users/{field}")
+    public String getUsersWithSorting(@PathVariable String field, Model model) {
+        List<User> users = userService.findUsersWithSorting(field);
         model.addAttribute("users", users);
         return "users";
     }

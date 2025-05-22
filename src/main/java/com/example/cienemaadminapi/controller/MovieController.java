@@ -19,7 +19,7 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/movies")
-    public String movies(Model model) {
+    public String getMovies(Model model) {
         List<Movie> movies = movieService.getAllMovies();
         model.addAttribute("movies", movies);
         return "movies";
@@ -30,16 +30,10 @@ public class MovieController {
         return "addMovie";
     }
 
-    //@PutMapping("/movies/update/{id}")
-    //public Movie updateMovie(@PathVariable Long id, @RequestBody Movie newMovie) {
-    //    return movieService.getMovieById(id)
-    //            .map(movie -> {
-    //                movie.setTitle(newMovie.getTitle());
-    //                movie.setDescription(newMovie.getDescription());
-     //               movie.setDirector(newMovie.getDirector());
-     //               movie.setProjection(newMovie.getProjection());
-     //               return movieService.addMovie(movie);
-     //           })
-     //           .orElseThrow();
-    //}
+    @GetMapping("/movies/{field}")
+    public String getMoviesWithSorting(@PathVariable String field, Model model) {
+        List<Movie> movies = movieService.findMoviesWithSorting(field);
+        model.addAttribute("movies", movies);
+        return "movies";
+    }
 }

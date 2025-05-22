@@ -4,6 +4,7 @@ import com.example.cienemaadminapi.model.Movie;
 import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.repository.ProjectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +29,9 @@ public class ProjectionService {
 
     public void deleteProjectionById(Long id) {
         projectionRepository.deleteById(id);
+    }
+
+    public List<Projection> findProjectionWithSorting(String field){
+        return projectionRepository.findAll(Sort.by(Sort.Direction.ASC,field));
     }
 }
