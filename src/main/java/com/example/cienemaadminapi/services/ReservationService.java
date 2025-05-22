@@ -18,7 +18,7 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    //public List<Reservation> getReservationsByProjectionId(Long projectionId) {
-        //
-    //}
+    public List<Reservation> getReservationsByProjectionId(Long projectionId) {
+        return reservationRepository.findByProjectionId(projectionId);
+    }
 }

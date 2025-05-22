@@ -25,6 +25,16 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
+    public Movie updateMovie(Long id, Movie movie) {
+        Optional<Movie> movieOptional = movieRepository.findById(id);
+        if (movieOptional.isPresent()) {
+            movieOptional.get().setTitle(movie.getTitle());
+            movieOptional.get().setDescription(movie.getDescription());
+            return movieRepository.save(movieOptional.get());
+        }
+        return null;
+    }
+
     public void deleteMovie(Movie movie) {
         movieRepository.delete(movie);
     }

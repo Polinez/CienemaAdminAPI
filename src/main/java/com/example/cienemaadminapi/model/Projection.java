@@ -13,10 +13,10 @@ import java.util.Date;
 public class Projection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seansId;
+    private Long projectionId;
 
     @ManyToOne
-    //@JoinColumn(name = "movie_movie_id")
+    @JoinColumn(name = "movieId")
     private Movie movie;
 
     private Date date;

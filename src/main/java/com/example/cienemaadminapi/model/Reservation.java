@@ -15,8 +15,13 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
-    private Long userId;
-    private Long projectionId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "projectionId")
+    private Projection projection;
 
     @ElementCollection
     private List<Integer> seatsId;
