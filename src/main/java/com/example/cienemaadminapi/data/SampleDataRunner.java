@@ -33,11 +33,10 @@ public class SampleDataRunner implements CommandLineRunner{
     @Transactional
     @Override
     public void run(String... args) throws Exception {
-        movieRepository.deleteAll();
         userRepository.deleteAll();
         projectionRepository.deleteAll();
         reservationRepository.deleteAll();
-
+        movieRepository.deleteAll();
         // Add sample data here if needed
     }
 }

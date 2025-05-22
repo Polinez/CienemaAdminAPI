@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,9 +22,10 @@ public class Projection {
 
     private Date date;
     private Time startTime;
-
-    //can be added as object type "room"
     private int roomNumber;
+
+    @OneToMany(mappedBy = "projection", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 
     public Projection() {
     }
