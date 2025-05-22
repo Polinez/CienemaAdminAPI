@@ -13,7 +13,7 @@ import java.util.List;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reservationId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -26,4 +26,12 @@ public class Reservation {
     @ElementCollection
     private List<Integer> seatsId;
 
+    public Reservation() {
+    }
+
+    public Reservation(User user, Projection projection, List<Integer> seatsId) {
+        this.user = user;
+        this.projection = projection;
+        this.seatsId = seatsId;
+    }
 }

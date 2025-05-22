@@ -3,17 +3,18 @@ package com.example.cienemaadminapi.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "movies")
+@ToString
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movieId;
+    private Long id;
 
     private String title;
     private String description;
@@ -21,6 +22,16 @@ public class Movie {
     private int duration;
 
     @OneToMany
-    //@JoinColumn(name = "projection_date_seans_id")
+    @JoinColumn(name = "projectionId")
     private List<Projection> projection;
+
+    public Movie() {
+    }
+
+    public Movie(String title, String description, String director, int duration) {
+        this.title = title;
+        this.description = description;
+        this.director = director;
+        this.duration = duration;
+    }
 }

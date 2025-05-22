@@ -13,7 +13,7 @@ import java.util.Date;
 public class Projection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long projectionId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "movieId")
@@ -24,4 +24,14 @@ public class Projection {
 
     //can be added as object type "room"
     private int roomNumber;
+
+    public Projection() {
+    }
+
+    public Projection(Movie movie, Date date, Time startTime, int roomNumber) {
+        this.movie = movie;
+        this.date = date;
+        this.startTime = startTime;
+        this.roomNumber = roomNumber;
+    }
 }
