@@ -26,12 +26,15 @@ public class Reservation {
     @ElementCollection
     private List<Integer> seatsId;
 
+    private double price;
+
     public Reservation() {
     }
 
-    public Reservation(User user, Projection projection, List<Integer> seatsId) {
+    public Reservation(User user, Projection projection, List<Integer> seatsId, double price) {
         this.user = user;
         this.projection = projection;
         this.seatsId = seatsId;
+        this.price = price;
     }
 }
