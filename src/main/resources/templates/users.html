@@ -5,6 +5,7 @@
     <title>Użytkownicy</title>
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/navStyle.css">
+    <link rel="stylesheet" href="/usersStyles.css">
 </head>
 <body>
 <nav class="navbar">
@@ -12,7 +13,6 @@
         <li><a href="/admin/dashboard" >🏠 Dashboard</a></li>
         <li><a href="/admin/movies">🎬 Filmy</a></li>
         <li><a href="/admin/projections">🗓️ Repertuar</a></li>
-        <li><a href="/admin/reservations">🎟️ Bilety</a></li>
         <li><a href="/admin/users" class="active">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
@@ -20,7 +20,32 @@
 
 <main>
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Panel filmów</h1>
+        <h1 class="dashboard-title">Panel uzytkowników</h1>
+    </div>
+
+    <div class="list">
+        <h2 class="section-title">Lista użytkowników</h2>
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>Tytuł</th>
+                <th>Gatunek</th>
+                <th>Data premiery</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Avengers: Endgame</td>
+                <td>Akcja, Sci-Fi</td>
+                <td>2019-04-26</td>
+            </tr>
+            <tr>
+                <td>Dune: Part Two</td>
+                <td>Przygodowy, Sci-Fi</td>
+                <td>2023-11-03</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </main>
 

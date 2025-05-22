@@ -1,3 +1,4 @@
+/*statistics */
 .stats-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -32,38 +33,9 @@
     font-size: 14px;
 }
 
-.recent-activity {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
+/*table*/
 
-.section-title {
-    font-size: 20px;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.activity-list {
-    list-style: none;
-}
-
-.activity-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-}
-
-.activity-item:last-child {
-    border-bottom: none;
-}
-
-.activity-time {
-    color: #7f8c8d;
-    font-size: 12px;
+.list-table th, .list-table td {
+    text-align: left;
 }
 
