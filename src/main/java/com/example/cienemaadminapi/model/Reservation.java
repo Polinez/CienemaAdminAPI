@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,16 +13,28 @@ import java.util.List;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reservationId;
+    private Long id;
 
-    private Long userId;
-    private Long seansId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
-    //only one seat?
-    private Long seatsId;
+    @ManyToOne
+    @JoinColumn(name = "projectionId")
+    private Projection projection;
 
-    //we should enum here for statuses
-    private String status;
-    
+    @ElementCollection
+    private List<Integer> seatsId;
 
+    private double price;
+
+    public Reservation() {
+    }
+
+    public Reservation(User user, Projection projection, List<Integer> seatsId, double price) {
+        this.user = user;
+        this.projection = projection;
+        this.seatsId = seatsId;
+        this.price = price;
+    }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,15 +14,26 @@ import java.util.Date;
 public class Projection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seansId;
+    private Long id;
 
     @ManyToOne
-    //@JoinColumn(name = "movie_movie_id")
+    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
     private Date date;
     private Time startTime;
-
-    //can be added as object type "room"
     private int roomNumber;
+
+    @OneToMany(mappedBy = "projection", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
+
+    public Projection() {
+    }
+
+    public Projection(Movie movie, Date date, Time startTime, int roomNumber) {
+        this.movie = movie;
+        this.date = date;
+        this.startTime = startTime;
+        this.roomNumber = roomNumber;
+    }
 }

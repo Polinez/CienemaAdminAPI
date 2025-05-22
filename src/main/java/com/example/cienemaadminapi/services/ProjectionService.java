@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectionService {
-
     @Autowired
     private ProjectionRepository projectionRepository;
 
@@ -18,4 +18,15 @@ public class ProjectionService {
         return projectionRepository.findAll();
     }
 
+    public Optional<Projection> getProjectionById(Long id) {
+        return projectionRepository.findById(id);
+    }
+
+    public Projection addProjection(Projection projection) {
+        return projectionRepository.save(projection);
+    }
+
+    public void deleteProjectionById(Long id) {
+        projectionRepository.deleteById(id);
+    }
 }

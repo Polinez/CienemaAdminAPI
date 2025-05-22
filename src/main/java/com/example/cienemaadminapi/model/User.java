@@ -7,13 +7,13 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
+@Table(name = "Users")
 @Getter
 @Setter
-@Table(name = "app_users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     private String username;
     private String firstName;
@@ -21,11 +21,10 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
     public User() {
-
     }
 
     public User(String username, String firstName, String surname, String email, String password) {
