@@ -26,12 +26,16 @@ public class MovieController {
         return "movies";
     }
 
-    //wersja robocza bo nie wiadomo co ma być na wejściu itp
     @GetMapping("/movies/add")
-    public String addMovie(Movie movie, Model model) {
-        movie = movieService.addMovie(movie);
-        model.addAttribute("movies", movie);
+    public String addMovie(Model model) {
+        model.addAttribute("movie", new Movie());
         return "addMovie";
+    }
+
+    @PostMapping("/movies/add")
+    public String addMovie(@ModelAttribute("movie") Movie movie) {
+        movieService.addMovie(movie);
+        return "redirect:/admin/movies";
     }
 
     //sorting data by fields
