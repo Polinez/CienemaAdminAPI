@@ -4,6 +4,8 @@ import com.example.cienemaadminapi.model.Movie;
 import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.repository.ProjectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,15 @@ public class ProjectionService {
 
     public List<Projection> findProjectionWithSorting(String field){
         return projectionRepository.findAll(Sort.by(Sort.Direction.ASC,field));
+    }
+
+    public Page<Projection> findProjectionsWithPagination(int offset, int pageSize){
+        Page<Projection> projections = projectionRepository.findAll(PageRequest.of(offset, pageSize));
+        return projections;
+    }
+
+    public Page<Projection> findProjectionsWithPaginationAndSorting(int offset,int pageSize,String field){
+        Page<Projection> projections = projectionRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return projections;
     }
 }
