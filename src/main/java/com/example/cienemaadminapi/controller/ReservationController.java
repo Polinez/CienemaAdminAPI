@@ -3,6 +3,7 @@ package com.example.cienemaadminapi.controller;
 import com.example.cienemaadminapi.model.Movie;
 import com.example.cienemaadminapi.model.Reservation;
 import com.example.cienemaadminapi.services.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,8 @@ import java.util.List;
 @RequestMapping("/admin")
 public class ReservationController {
 
-    private final ReservationService reservationService;
-
-    public ReservationController(ReservationService reservationService) {
-        this.reservationService = reservationService;
-    }
+    @Autowired
+    private ReservationService reservationService;
 
     @GetMapping("/reservations")
     public String reservations(Model model) {

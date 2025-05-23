@@ -26,8 +26,11 @@ public class MovieController {
         return "movies";
     }
 
+    //wersja robocza bo nie wiadomo co ma być na wejściu itp
     @GetMapping("/movies/add")
-    public String addMovie() {
+    public String addMovie(Movie movie, Model model) {
+        movie = movieService.addMovie(movie);
+        model.addAttribute("movies", movie);
         return "addMovie";
     }
 
