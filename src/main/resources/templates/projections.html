@@ -38,11 +38,11 @@
             <tbody>
             <tr th:each="projection : ${projections}">
                 <td th:text="${projection.movie.title}">Tytuł filmu</td>
-                <td th:text="${#temporals.format(projection.date, 'yyyy-MM-dd')}">Data seansu</td>
-                <td th:text="${#temporals.format(projection.startTime, 'HH:mm')}">Godzina</td>
+                <td th:text="${#dates.format(projection.date, 'yyyy-MM-dd')}">Data seansu</td>
+                <td th:text="${#dates.format(projection.startTime, 'HH:mm')}">Godzina</td>
                 <td th:text="${projection.roomNumber}">Sala</td>
                 <td>
-                    <a th:href="@{'/admin/reservations?id=' + ${projection.seansId}}">Bilety</a>
+                    <a th:href="@{'/admin/reservations?id=' + ${projection.id}}">Bilety</a>
                 </td>
             </tr>
             </tbody>
