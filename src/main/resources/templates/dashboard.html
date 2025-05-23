@@ -27,12 +27,12 @@
     <div class="stats-container">
         <div class="stat-card">
             <div class="stat-icon">🎟️</div>
-            <div class="stat-value">124</div>
+            <div class="stat-value" th:text="${reservationCount}">124</div>
             <div class="stat-label">Dzisiejsze rezerwacje</div>
         </div>
         <div class="stat-card">
             <div class="stat-icon">💰</div>
-            <div class="stat-value">5,240 zł</div>
+            <div class="stat-value" th:text="${#numbers.formatDecimal(totalIncome, 0, 'COMMA', 2, 'POINT')} + ' zł'">5,240 zł</div>
             <div class="stat-label">Dzisiejszy przychód</div>
         </div>
         <div class="stat-card">

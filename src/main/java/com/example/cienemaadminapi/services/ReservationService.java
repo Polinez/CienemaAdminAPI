@@ -10,7 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,6 +27,14 @@ public class ReservationService {
 
     public List<Reservation> getReservationsByProjectionId(Long projectionId) {
         return reservationRepository.findByProjectionId(projectionId);
+    }
+
+    //reservation count and revenue statistics
+    public List<Reservation> getReservationsForDate(LocalDate date) {
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime startOfNextDay = date.plusDays(1).atStartOfDay();
+
+        return reservationRepository.findByCreatedAtGreaterThanEqualAndCreatedAtLessThan(startOfDay, startOfNextDay);
     }
 
     public List<Reservation> findReservationWithSorting(String field){
