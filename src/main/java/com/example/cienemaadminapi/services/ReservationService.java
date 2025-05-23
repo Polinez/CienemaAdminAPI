@@ -6,6 +6,8 @@ import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.model.Reservation;
 import com.example.cienemaadminapi.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,15 @@ public class ReservationService {
 
     public List<Reservation> findReservationWithSorting(String field){
         return reservationRepository.findAll(Sort.by(Sort.Direction.ASC,field));
+    }
+
+    public Page<Reservation> findReservationsWithPagination(int offset, int pageSize){
+        Page<Reservation> reservations = reservationRepository.findAll(PageRequest.of(offset, pageSize));
+        return reservations;
+    }
+
+    public Page<Reservation> findReservationsWithPaginationAndSorting(int offset,int pageSize,String field){
+        Page<Reservation> reservations = reservationRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+        return reservations;
     }
 }

@@ -43,7 +43,6 @@ public class MovieService {
         movieRepository.delete(movie);
     }
 
-
     //trying to make sorting methods
     public List<Movie> findMoviesWithSorting(String field){
         return movieRepository.findAll(Sort.by(Sort.Direction.ASC,field));
