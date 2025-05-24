@@ -38,6 +38,14 @@ public class MovieController {
         return "redirect:/admin/movies";
     }
 
+    @DeleteMapping("/movies/delete")
+    public String deleteMovie(@ModelAttribute("movie") Movie movie) {
+        movieService.deleteMovie(movie);
+        return "redirect:/admin/movies";
+    }
+
+    //todo: get and post for movie updating
+
     //sorting data by fields
     @GetMapping("/movies/{field}")
     public String getMoviesWithSorting(@PathVariable String field, Model model) {

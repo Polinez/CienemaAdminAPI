@@ -44,6 +44,14 @@ public class ProjectionController {
         return "redirect:/projections";
     }
 
+    @DeleteMapping("/projections/delete")
+    public String deleteProjection(@ModelAttribute("projection") Projection projection) {
+        projectionService.deleteProjectionById(projection.getId());
+        return "redirect:/projections";
+    }
+
+    //todo: get and post for updating projection
+
     //page pagination
     @GetMapping("/projections/pagination/{offset}/{pageSize}")
     public String getProjectionsWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
