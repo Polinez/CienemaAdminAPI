@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +30,18 @@ public class ProjectionController {
         List<Projection> projections = projectionService.findProjectionWithSorting(field);
         model.addAttribute("projections", projections);
         return "projections";
+    }
+
+    @GetMapping("/projections/add")
+    public String addProjection(Model model) {
+        model.addAttribute("projection", new Projection());
+        return "addProjection";
+    }
+
+    @PostMapping("/projections/add")
+    public String addProjection(@ModelAttribute("projection") Projection projection) {
+        projectionService.addProjection(projection);
+        return "redirect:/projections";
     }
 
     //page pagination
