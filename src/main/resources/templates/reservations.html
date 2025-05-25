@@ -22,6 +22,27 @@
         <h1 class="dashboard-title">Panel filmów</h1>
     </div>
 
+    <div class="list">
+        <h2 class="section-title" th:text="'Lista dostępnych rezerwacji na film: ' + ${reservation.id}">Tytuł tabeli</h2>
+        <table class="list-table">
+            <thead>
+            <tr>
+                <th>ID Rezerwacji</th>
+                <th>Cena</th>
+                <th>ID Seansu</th>
+                <th>Imie Użytkownika</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${reservation.id}"></td>
+                <td th:text="${reservation.price}"></td>
+                <td th:text="${reservation.projection.id}"></td>
+                <td th:text="${reservation.user.firstName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </main>
 

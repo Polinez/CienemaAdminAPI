@@ -1,0 +1,21 @@
+.ticket-button {
+    background-color: #222; /* Ciemnoszary/czarny */
+    border: none;
+    color: #f1f1f1;
+    padding: 10px 18px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1px 1px;
+    cursor: pointer;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transition: background 0.2s, color 0.2s;
+}
+
+.ticket-button:hover {
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+}
