@@ -4,6 +4,7 @@ import com.example.cienemaadminapi.model.Movie;
 import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.model.Reservation;
 import com.example.cienemaadminapi.services.ProjectionService;
+import com.example.cienemaadminapi.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class ProjectionController {
 
     @Autowired
     private ProjectionService projectionService;
+    @Autowired
+    private ReservationService reservationService;
 
     @GetMapping("/projections")
     public String projections(Model model) {
@@ -74,13 +77,14 @@ public class ProjectionController {
 
     @GetMapping("/projections/{id}/reservations")
     public String getProjectionReservations(@PathVariable Long id, Model model) {
-        Optional<Projection> projections = projectionService.getProjectionById(id);
-        if (projections.isPresent()) {
-            Projection projection = projections.get();
-            List<Reservation> reservations = projection.getReservations();
-            model.addAttribute("reservations", reservations);
+        Optional<Projection> optionalProjection = projectionService.getProjectionById(id);
+
+        if (optionalProjection.isPresent()) {
+            Projection projection = optionalProjection.get();
+            List<Reservation> reservations = reservationService.getReservationsByProjectionId(id);;
             model.addAttribute("projection", projection);
-            return "projectionReservations";
+            model.addAttribute("reservations", reservations);
+            return "reservations";
         } else {
             return "redirect:/projections";
         }

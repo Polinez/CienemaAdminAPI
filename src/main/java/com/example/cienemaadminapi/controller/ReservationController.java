@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,9 +25,8 @@ public class ReservationController {
 
     @GetMapping("/reservations")
     public String getReservationById(@RequestParam(name = "id") Long id, Model model) {
-        //TODO zmienic aby niw szukalo po id rezerwacji a po id seansu
-        Reservation reservation = reservationService.getReservationById(id);
-        model.addAttribute("reservation", reservation);
+        List<Reservation> reservations = reservationService.getReservationsByProjectionId(id);
+        model.addAttribute("reservation", reservations);
         return "reservations";
     }
 

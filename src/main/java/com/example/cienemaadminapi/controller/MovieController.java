@@ -45,7 +45,6 @@ public class MovieController {
         return "redirect:/admin/movies";
     }
 
-    //please add html file when created
     @GetMapping("/movies/edit")
     public String updateMovie(@ModelAttribute("movie") Movie movie) {
         return "editMovie";
