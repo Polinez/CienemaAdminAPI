@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Dodaj seans</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/navStyle.css">
+    <link rel="stylesheet" href="/addMovieStyle.css">
 </head>
 <body>
+<nav class="navbar">
+    <ul>
+        <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
+        <li><a href="/admin/movies">🎬 Filmy</a></li>
+        <li><a href="/admin/projections" class="active">🗓️ Repertuar</a></li>
+        <li><a href="/admin/reservations">🎟️ Bilety</a></li>
+        <li><a href="/admin/users">👥 Użytkownicy</a></li>
+        <li><a href="/">🚪 Wyloguj się</a></li>
+    </ul>
+</nav>
 
+<main>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Dodaj nowy seans</h1>
+    </div>
+
+    <div class="movie-form-container">
+        <form th:action="@{/admin/projection/add}" method="post" class="movie-form">
+            <div class="form-group">
+                <label for="movieId">Film</label>
+                <select id="movieId" name="movieId" required>
+                    <option value="">-- Wybierz film --</option>
+                    <option th:each="movie : ${movies}"
+                            th:value="${movie.id}"
+                            th:text="${movie.title}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Data seansu</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Godzina rozpoczęcia</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hall">Sala</label>
+                <select id="hall" name="hall" required>
+                    <option value="">-- Wybierz salę --</option>
+                    <option value="1">Sala 1</option>
+                    <option value="2">Sala 2</option>
+                    <option value="3">Sala 3</option>
+                    <!-- tutaj trzeba będzie ładować sale z backendu/ewentualnie stałe dać jak tego nie uwzględniamy -->
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="form-btn form-btn-primary">Dodaj seans</button>
+                <button type="button" class="form-btn form-btn-secondary" onclick="window.location.href='/admin/projections'">Anuluj</button>
+            </div>
+        </form>
+    </div>
+</main>
 </body>
 </html>
