@@ -2,6 +2,7 @@ package com.example.cienemaadminapi.controller;
 
 import com.example.cienemaadminapi.model.Movie;
 import com.example.cienemaadminapi.model.Projection;
+import com.example.cienemaadminapi.model.Reservation;
 import com.example.cienemaadminapi.services.ProjectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -50,7 +52,6 @@ public class ProjectionController {
         return "redirect:/projections";
     }
 
-    //todo: get and post for updating projection
     //please add html file when created
     @GetMapping("/projections/update")
     public String updateProjection(@ModelAttribute("projection") Projection projection) {
@@ -69,6 +70,20 @@ public class ProjectionController {
                     return "redirect:/projections";
                 })
                 .orElseThrow();
+    }
+
+    @GetMapping("/projections/{id}/reservations")
+    public String getProjectionReservations(@PathVariable Long id, Model model) {
+        Optional<Projection> projections = projectionService.getProjectionById(id);
+        if (projections.isPresent()) {
+            Projection projection = projections.get();
+            List<Reservation> reservations = projection.getReservations();
+            model.addAttribute("reservations", reservations);
+            model.addAttribute("projection", projection);
+            return "projectionReservations";
+        } else {
+            return "redirect:/projections";
+        }
     }
 
     //page pagination
