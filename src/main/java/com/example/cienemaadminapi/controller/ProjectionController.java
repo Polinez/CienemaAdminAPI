@@ -58,6 +58,7 @@ public class ProjectionController {
     //please add html file when created
     @GetMapping("/projections/update")
     public String updateProjection(@ModelAttribute("projection") Projection projection) {
+
         return "updateProjection";
     }
 
