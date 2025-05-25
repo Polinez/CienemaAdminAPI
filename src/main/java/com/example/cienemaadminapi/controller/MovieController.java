@@ -25,5 +25,15 @@ public class MovieController {
     }
 
     @GetMapping("/movies/add")
-    public String addMovie() {return "addMovie";}
+    public String addMovie() {
+        return "addMovie";
+    }
+
+    @GetMapping("/movies/edit")
+    public String editMovie() {
+        return "editMovie";
+    }
+
+    @GetMapping("movies/delete")
+    public String deleteMovie() {return "deleteMovie";}
 }
