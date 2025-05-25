@@ -48,7 +48,6 @@
                     <td>18:30</td>
                     <td>Sala 1</td>
                     <td class="action-buttons">
-                        <a href="/admin/reservations?id=1" class="btn btn-primary btn-sm">Bilety</a>
                         <a href="/admin/projections/update/1" class="btn btn-primary btn-sm">Edytuj</a>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="1">Usuń</button>
                     </td>
@@ -59,7 +58,6 @@
                     <td>21:00</td>
                     <td>Sala 2</td>
                     <td class="action-buttons">
-                        <a href="/admin/reservations?id=2" class="btn btn-primary btn-sm">Bilety</a>
                         <a href="/admin/projections/update/2" class="btn btn-primary btn-sm">Edytuj</a>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="2">Usuń</button>
                     </td>
@@ -70,7 +68,6 @@
                     <td>19:15</td>
                     <td>Sala 3</td>
                     <td class="action-buttons">
-                        <a href="/admin/reservations?id=3" class="btn btn-primary btn-sm">Bilety</a>
                         <a href="/admin/projections/update/3" class="btn btn-primary btn-sm">Edytuj</a>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="3">Usuń</button>
                     </td>
@@ -81,7 +78,6 @@
                     <td>17:00</td>
                     <td>Sala 1</td>
                     <td class="action-buttons">
-                        <a href="/admin/reservations?id=4" class="btn btn-primary btn-sm">Bilety</a>
                         <a href="/admin/projections/update/4" class="btn btn-primary btn-sm">Edytuj</a>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="4">Usuń</button>
                     </td>
@@ -92,7 +88,6 @@
                     <td>20:30</td>
                     <td>Sala 2</td>
                     <td class="action-buttons">
-                        <a href="/admin/reservations?id=5" class="btn btn-primary btn-sm">Bilety</a>
                         <a href="/admin/projections/update/5" class="btn btn-primary btn-sm">Edytuj</a>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="5">Usuń</button>
                     </td>
@@ -104,7 +99,6 @@
                     <td th:text="${#dates.format(projection.startTime, 'HH:mm')}">Godzina</td>
                     <td th:text="${projection.roomNumber}">Sala</td>
                     <td class="action-buttons">
-                        <a th:href="@{'/admin/reservations?id=' + ${projection.id}}" class="btn btn-primary btn-sm">Bilety</a>
                         <a th:href="@{'/admin/projections/update/' + ${projection.id}}" class="btn btn-primary btn-sm">Edytuj</a>
                         <button class="btn btn-danger btn-sm delete-btn" th:data-id="${projection.id}">Usuń</button>
                     </td>
