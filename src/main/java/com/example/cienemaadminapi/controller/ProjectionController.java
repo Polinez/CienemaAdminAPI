@@ -57,7 +57,6 @@ public class ProjectionController {
         return "updateProjection";
     }
 
-    //please add html file when created
     @PutMapping("/projections/update/{id}")
     public String updateProjection(@PathVariable Long id, @RequestBody Projection newProjection) {
         return projectionService.getProjectionById(id)
