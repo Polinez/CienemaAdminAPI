@@ -1,7 +1,6 @@
 package com.example.cienemaadminapi.controller;
 
 import com.example.cienemaadminapi.model.Movie;
-import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,9 +45,9 @@ public class MovieController {
     }
 
     //please add html file when created
-    @GetMapping("/movies/edit")
+    @GetMapping("/movies/update")
     public String updateMovie(@ModelAttribute("movie") Movie movie) {
-        return "editMovie";
+        return "updateMovie";
     }
 
     @PutMapping("/movie/update/{id}")
