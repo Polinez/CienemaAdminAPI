@@ -51,6 +51,26 @@ public class ProjectionController {
     }
 
     //todo: get and post for updating projection
+    //please add html file when created
+    @GetMapping("/projections/update")
+    public String updateProjection(@ModelAttribute("projection") Projection projection) {
+        return "updateProjection";
+    }
+
+    //please add html file when created
+    @PutMapping("/projections/update/{id}")
+    public String updateProjection(@PathVariable Long id, @RequestBody Projection newProjection) {
+        return projectionService.getProjectionById(id)
+                .map(projection -> {
+                    projection.setMovie(newProjection.getMovie());
+                    projection.setDate(newProjection.getDate());
+                    projection.setDate(newProjection.getStartTime());
+                    projection.setRoomNumber(newProjection.getRoomNumber());
+                    projectionService.addProjection(projection);
+                    return "redirect:/projections";
+                })
+                .orElseThrow();
+    }
 
     //page pagination
     @GetMapping("/projections/pagination/{offset}/{pageSize}")
