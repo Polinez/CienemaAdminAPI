@@ -43,9 +43,9 @@ public class SampleDataRunner implements CommandLineRunner{
         reservationRepository.deleteAll();
         movieRepository.deleteAll();
 
-        User user1 = userRepository.save(new User("admin", "John", "Black", "admin", "admin"));
-        User user2 = userRepository.save(new User("user", "Mark", "Red", "user", "user"));
-        User user3 = userRepository.save(new User("user2", "Anthony", "White", "user2", "user2"));
+        User user1 = userRepository.save(new User("admin", "John", "Black", "admin@admin.pl", "admin"));
+        User user2 = userRepository.save(new User("user", "Mark", "Red", "user@user.pl", "user"));
+        User user3 = userRepository.save(new User("user2", "Anthony", "White", "user2@user2.pl", "user2"));
 
         Movie movie1 = movieRepository.save(new Movie("Star Wars", "abcabc", "Tarantino", 120));
         Movie movie2 = movieRepository.save(new Movie("Harry Potter", "abcabc", "Python", 90));
