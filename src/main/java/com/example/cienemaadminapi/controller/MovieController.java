@@ -1,10 +1,13 @@
 package com.example.cienemaadminapi.controller;
 
 import com.example.cienemaadminapi.model.Movie;
+import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,22 +21,71 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/movies")
-    public String movies(Model model) {
+    public String getMovies(Model model) {
         List<Movie> movies = movieService.getAllMovies();
         model.addAttribute("movies", movies);
         return "movies";
     }
 
     @GetMapping("/movies/add")
-    public String addMovie() {
+    public String addMovie(Model model) {
+        model.addAttribute("movie", new Movie());
         return "addMovie";
     }
 
-    @GetMapping("/movies/edit")
-    public String editMovie() {
-        return "editMovie";
+    @PostMapping("/movies/add")
+    public String addMovie(@ModelAttribute("movie") Movie movie) {
+        movieService.addMovie(movie);
+        return "redirect:/admin/movies";
     }
 
-    @GetMapping("movies/delete")
-    public String deleteMovie() {return "deleteMovie";}
+    @DeleteMapping("/movies/delete")
+    public String deleteMovie(@ModelAttribute("movie") Movie movie) {
+        movieService.deleteMovie(movie);
+        return "redirect:/admin/movies";
+    }
+
+    //please add html file when created
+    @GetMapping("/movies/update")
+    public String updateMovie(@ModelAttribute("movie") Movie movie) {
+        return "updateMovie";
+    }
+
+    @PutMapping("/movie/update/{id}")
+    public String updateMovie(@PathVariable Long id, @RequestBody Movie newMovie) {
+        return movieService.getMovieById(id)
+                .map(movie -> {
+                    movie.setTitle(newMovie.getTitle());
+                    movie.setDescription(newMovie.getDescription());
+                    movie.setDirector(newMovie.getDirector());
+                    movie.setDuration(newMovie.getDuration());
+                    movieService.addMovie(movie);
+                    return "redirect:/movies";
+                })
+                .orElseThrow();
+    }
+
+    //sorting data by fields
+    @GetMapping("/movies/{field}")
+    public String getMoviesWithSorting(@PathVariable String field, Model model) {
+        List<Movie> movies = movieService.findMoviesWithSorting(field);
+        model.addAttribute("movies", movies);
+        return "movies";
+    }
+
+    //page pagination
+    @GetMapping("/movies/pagination/{offset}/{pageSize}")
+    public String getMoviesWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
+        Page<Movie> moviesWithPagination = movieService.findMoviesWithPagination(offset, pageSize);
+        model.addAttribute("movies", moviesWithPagination);
+        return "movies";
+    }
+
+    //page pagination and sorting at the same time
+    @GetMapping("/movies/paginationAndSort/{offset}/{pageSize}/{field}")
+    public String getMoviesWithPaginationAndSorting(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
+        Page<Movie> moviesWithPaginationAndSorting = movieService.findMoviesWithPaginationAndSorting(offset, pageSize, field);
+        model.addAttribute("movies", moviesWithPaginationAndSorting);
+        return "movies";
+    }
 }

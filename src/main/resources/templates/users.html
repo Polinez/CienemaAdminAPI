@@ -28,21 +28,16 @@
         <table class="list-table">
             <thead>
             <tr>
-                <th>Tytuł</th>
-                <th>Gatunek</th>
-                <th>Data premiery</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Avengers: Endgame</td>
-                <td>Akcja, Sci-Fi</td>
-                <td>2019-04-26</td>
-            </tr>
-            <tr>
-                <td>Dune: Part Two</td>
-                <td>Przygodowy, Sci-Fi</td>
-                <td>2023-11-03</td>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.firstName}">Imię</td>
+                <td th:text="${user.surname}">Nazwisko</td>
+                <td th:text="${user.email}">Email</td>
             </tr>
             </tbody>
         </table>

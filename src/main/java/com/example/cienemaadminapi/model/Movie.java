@@ -3,24 +3,36 @@ package com.example.cienemaadminapi.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "movies")
+@ToString
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movieId;
+    @Column(name = "movie_id")
+    private Long id;
 
     private String title;
     private String description;
     private String director;
-    //private String actor;
+    private int duration;
 
-    @OneToMany
-    //@JoinColumn(name = "projection_date_seans_id")
-    private List<Projection> projection;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name = "projectionId")
+    private List<Projection> projections;
+
+    public Movie() {
+    }
+
+    public Movie(String title, String description, String director, int duration) {
+        this.title = title;
+        this.description = description;
+        this.director = director;
+        this.duration = duration;
+    }
 }
