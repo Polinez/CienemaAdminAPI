@@ -1,6 +1,7 @@
 package com.example.cienemaadminapi.controller;
 
 import com.example.cienemaadminapi.model.Movie;
+import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,32 @@ public class MovieController {
     public String addMovie(@ModelAttribute("movie") Movie movie) {
         movieService.addMovie(movie);
         return "redirect:/admin/movies";
+    }
+
+    @DeleteMapping("/movies/delete")
+    public String deleteMovie(@ModelAttribute("movie") Movie movie) {
+        movieService.deleteMovie(movie);
+        return "redirect:/admin/movies";
+    }
+
+    //please add html file when created
+    @GetMapping("/movies/update")
+    public String updateMovie(@ModelAttribute("movie") Movie movie) {
+        return "updateMovie";
+    }
+
+    @PutMapping("/movie/update/{id}")
+    public String updateMovie(@PathVariable Long id, @RequestBody Movie newMovie) {
+        return movieService.getMovieById(id)
+                .map(movie -> {
+                    movie.setTitle(newMovie.getTitle());
+                    movie.setDescription(newMovie.getDescription());
+                    movie.setDirector(newMovie.getDirector());
+                    movie.setDuration(newMovie.getDuration());
+                    movieService.addMovie(movie);
+                    return "redirect:/movies";
+                })
+                .orElseThrow();
     }
 
     //sorting data by fields
