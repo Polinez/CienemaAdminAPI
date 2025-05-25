@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Filmy</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/navStyle.css">
+  <link rel="stylesheet" href="/editMovieStyle.css">
+</head>
+<body>
+<nav class="navbar">
+  <ul>
+    <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
+    <li><a href="/admin/movies" class="active">🎬 Filmy</a></li>
+    <li><a href="/admin/projections">🗓️ Repertuar</a></li>
+    <li><a href="/admin/users">👥 Użytkownicy</a></li>
+    <li><a href="/">🚪 Wyloguj się</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Zarządzanie filmami</h1>
+  </div>
+
+  <div class="container" style="max-width: 1200px; margin: 30px auto; padding: 0 20px;">
+    <div class="search-container">
+      <input type="text" class="search-input" id="movieSearch" placeholder="Wyszukaj film...">
+    </div>
+
+    <div class="list">
+      <h2 class="section-title">Lista filmów</h2>
+      <table class="list-table">
+        <thead>
+        <tr>
+          <th style="width: 35%">Tytuł</th>
+          <th style="width: 30%">Gatunek</th>
+          <th style="width: 15%">Rok premiery</th>
+          <th style="width: 20%">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Avengers: Koniec gry</td>
+          <td>Akcja, Sci-Fi</td>
+          <td>2019</td>
+          <td class="action-buttons">
+            <a href="/admin/movies/edit/1" class="btn btn-primary btn-sm">Edytuj</a>
+            <button class="btn btn-danger btn-sm delete-btn">Usuń</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Interstellar</td>
+          <td>Sci-Fi, Przygodowy</td>
+          <td>2014</td>
+          <td class="action-buttons">
+            <a href="/admin/movies/edit/2" class="btn btn-primary btn-sm">Edytuj</a>
+            <button class="btn btn-danger btn-sm delete-btn">Usuń</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Ojciec chrzestny</td>
+          <td>Dramat, Gangsterski</td>
+          <td>1972</td>
+          <td class="action-buttons">
+            <a href="/admin/movies/edit/3" class="btn btn-primary btn-sm">Edytuj</a>
+            <button class="btn btn-danger btn-sm delete-btn">Usuń</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Forrest Gump</td>
+          <td>Dramat, Komedia</td>
+          <td>1994</td>
+          <td class="action-buttons">
+            <a href="/admin/movies/edit/4" class="btn btn-primary btn-sm">Edytuj</a>
+            <button class="btn btn-danger btn-sm delete-btn">Usuń</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- Modal potwierdzenia usunięcia -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Potwierdzenie usunięcia</h2>
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+      <p>Czy na pewno chcesz usunąć ten film?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" id="cancelDelete">Anuluj</button>
+      <button class="btn btn-danger" id="confirmDelete">Usuń</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Wyszukiwanie
+  document.getElementById('movieSearch').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('.list-table tbody tr');
+
+    rows.forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+  });
+
+  // Modal
+  const modal = document.getElementById('deleteModal');
+  const deleteButtons = document.querySelectorAll('.delete-btn');
+  const closeBtn = document.querySelector('.close');
+  const cancelBtn = document.getElementById('cancelDelete');
+
+  deleteButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  document.getElementById('confirmDelete').addEventListener('click', () => {
+    alert('Film został usunięty (w pełnej wersji aplikacji)');
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
