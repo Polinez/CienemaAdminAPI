@@ -46,9 +46,9 @@ public class MovieController {
     }
 
     //please add html file when created
-    @GetMapping("/movies/update")
+    @GetMapping("/movies/edit")
     public String updateMovie(@ModelAttribute("movie") Movie movie) {
-        return "updateMovie";
+        return "editMovie";
     }
 
     @PutMapping("/movie/update/{id}")
