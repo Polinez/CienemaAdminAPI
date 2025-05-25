@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,13 @@ public class ReservationController {
     }
 
     @GetMapping("/reservations")
-    public String reservations(Model model) {
-        List<Reservation> reservations = reservationService.getAllReservations();
-        model.addAttribute("reservations", reservations);
+    public String getReservationById(@RequestParam(name = "id") Long id, Model model) {
+        //TODO zmienic aby niw szukalo po id rezerwacji a po id seansu
+        Reservation reservation = reservationService.getReservationById(id);
+        model.addAttribute("reservation", reservation);
         return "reservations";
     }
+
 
     @GetMapping("/reservations/{field}")
     public String getReservationsWithSorting(@PathVariable String field, Model model) {

@@ -22,6 +22,11 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public Reservation getReservationById(Long id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Rezerwacja o podanym ID nie istnieje: " + id));
+    }
+
     public List<Reservation> getReservationsByProjectionId(Long projectionId) {
         return reservationRepository.findByProjectionId(projectionId);
     }

@@ -60,7 +60,10 @@ public class SampleDataRunner implements CommandLineRunner{
         seats.add(16);
 
         reservationRepository.save(new Reservation(user1, projection1, seats, 32.00));
+        reservationRepository.save(new Reservation(user1, projection2, seats, 19.00));
         reservationRepository.save(new Reservation(user2, projection2, seats, 19.00));
         reservationRepository.save(new Reservation(user3, projection3, seats, 26.00));
+        reservationRepository.save(new Reservation(user2, projection1, seats, 32.00));
+        reservationRepository.save(new Reservation(user3, projection2, seats, 19.00));
     }
 }

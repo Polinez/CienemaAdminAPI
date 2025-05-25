@@ -42,7 +42,7 @@
                 <td th:text="${projection.startTime}">Godzina</td>
                 <td th:text="${projection.roomNumber}">Sala</td>
                 <td>
-                    <a th:href="@{'/admin/reservations?id=' + ${projection.id}}">Bilety</a>
+                    <a class="ticket-button" th:href="@{'/admin/reservations?id=' + ${projection.id}}" >Bilety</a>
                 </td>
             </tr>
             </tbody>
