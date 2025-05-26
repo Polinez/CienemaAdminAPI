@@ -33,8 +33,9 @@ public class UserService {
         return users;
     }
 
-    public Page<User> findUsersWithPaginationAndSorting(int offset,int pageSize,String field){
-        Page<User> users = userRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    public Page<User> findUsersWithPaginationAndSorting(int offset, String field, String direction){
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+        Page<User> users = userRepository.findAll(PageRequest.of(offset, 5, sort));
         return users;
     }
 }

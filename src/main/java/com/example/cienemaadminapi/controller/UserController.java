@@ -20,33 +20,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
-    public String users(Model model) {
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
-
-    @GetMapping("/users/{field}")
-    public String getUsersWithSorting(@PathVariable String field, Model model) {
-        List<User> users = userService.findUsersWithSorting(field);
-        model.addAttribute("users", users);
-        return "users";
-    }
 
     //page pagination
-    @GetMapping("/users/pagination/{offset}/{pageSize}")
-    public String getUsersWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
-        Page<User> usersWithPagination = userService.findUsersWithPagination(offset, pageSize);
-        model.addAttribute("users", usersWithPagination);
+    @GetMapping("/users/{field}/{direction}/{offset}")
+    public String getUsersWithPaginationAndSorting(@PathVariable String field,
+                                                   @PathVariable String direction,
+                                                   @PathVariable int offset,
+                                                   Model model) {
+        Page<User> usersPage = userService.findUsersWithPaginationAndSorting(offset, field, direction);
+
+        model.addAttribute("users", usersPage.getContent());
+        model.addAttribute("currentPage", offset);
+        model.addAttribute("totalPages", usersPage.getTotalPages());
+        model.addAttribute("sortField", field);
+        model.addAttribute("sortDirection", direction);
+        model.addAttribute("reverseSortDirection", direction.equalsIgnoreCase("asc") ? "desc" : "asc");
+
         return "users";
     }
 
-    //page pagination and sorting at the same time
-    @GetMapping("/users/paginationAndSort/{offset}/{pageSize}/{field}")
-    public String getUsersWithPaginationAndSorting(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
-        Page<User> usersWithPaginationAndSorting = userService.findUsersWithPaginationAndSorting(offset, pageSize, field);
-        model.addAttribute("users", usersWithPaginationAndSorting);
-        return "users";
-    }
+
 }
