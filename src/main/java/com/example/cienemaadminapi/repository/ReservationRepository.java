@@ -19,5 +19,4 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
     List<Reservation> findByCreatedAtGreaterThanEqualAndCreatedAtLessThan(LocalDateTime start, LocalDateTime end);
 
     Page<Reservation> findByProjectionId(Long projectionId, Pageable pageable);
-
 }
