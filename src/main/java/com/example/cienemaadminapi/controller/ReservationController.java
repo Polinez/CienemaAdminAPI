@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -40,6 +42,10 @@ public class ReservationController {
             Projection projection = optionalProjection.get();
             Page<Reservation> reservationsPage = reservationService.findReservationsWithPaginationAndSorting(projectionId, offset, field, direction);
 
+            Set<Integer> roomNumbers = reservationsPage.stream()
+                    .map(reservation -> reservation.getProjection().getRoomNumber())
+                    .collect(Collectors.toSet());
+
             model.addAttribute("projection", projection);
             model.addAttribute("reservations", reservationsPage.getContent()); // zawartosc
             model.addAttribute("currentPage", reservationsPage.getNumber()); // aktualna strona
@@ -47,6 +53,7 @@ public class ReservationController {
             model.addAttribute("sortField", field); // pole sortowania
             model.addAttribute("sortDirection", direction);// kierunek sortowania
             model.addAttribute("reverseSortDirection", direction.equals("asc") ? "desc" : "asc");
+            model.addAttribute("roomNumbers", roomNumbers);
 
             return "reservations";
         } else {
