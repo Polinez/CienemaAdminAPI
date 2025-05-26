@@ -11,9 +11,9 @@
 <nav class="navbar">
     <ul>
         <li><a href="/admin/dashboard" >🏠 Dashboard</a></li>
-        <li><a href="/admin/movies">🎬 Filmy</a></li>
-        <li><a href="/admin/projections">🗓️ Repertuar</a></li>
-        <li><a href="/admin/users" class="active">👥 Użytkownicy</a></li>
+        <li><a href="/admin/movies/title/asc/0">🎬 Filmy</a></li>
+        <li><a href="/admin/projections/movie.title/asc/0">🗓️ Repertuar</a></li>
+        <li><a href="/admin/users/firstName/asc/0" class="active">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
 </nav>
@@ -28,9 +28,18 @@
         <table class="list-table">
             <thead>
             <tr>
-                <th>Imię</th>
-                <th>Nazwisko</th>
-                <th>Email</th>
+                <th>
+                    Imię
+                    <a th:href="@{'/admin/users/firstName/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
+                </th>
+                <th>
+                    Nazwisko
+                    <a th:href="@{'/admin/users/surname/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
+                </th>
+                <th>
+                    Email
+                    <a th:href="@{'/admin/users/email/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +50,13 @@
             </tr>
             </tbody>
         </table>
+        <div class="pagination">
+            <span th:text="'Strona ' + ${currentPage + 1} + ' z ' + ${totalPages}">1 of 1 pages</span>
+            <a th:href="@{'/admin/users/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage - 1}}"
+               th:if="${currentPage > 0}">«</a>
+            <a th:href="@{'/admin/users/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage + 1}}"
+               th:if="${currentPage + 1 < totalPages}">»</a>
+        </div>
     </div>
 </main>
 

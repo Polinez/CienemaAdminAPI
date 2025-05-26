@@ -1,7 +1,9 @@
 package com.example.cienemaadminapi.controller;
 
 import com.example.cienemaadminapi.model.Movie;
+import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.model.Reservation;
+import com.example.cienemaadminapi.services.ProjectionService;
 import com.example.cienemaadminapi.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,36 +23,36 @@ import java.util.Optional;
 public class ReservationController {
 
     @Autowired
+    private ProjectionService projectionService;
+    @Autowired
     private ReservationService reservationService;
 
-    @GetMapping("/reservations")
-    public String getReservationById(@RequestParam(name = "id") Long id, Model model) {
-        List<Reservation> reservations = reservationService.getReservationsByProjectionId(id);
-        model.addAttribute("reservation", reservations);
-        return "reservations";
-    }
-
-
-    @GetMapping("/reservations/{field}")
-    public String getReservationsWithSorting(@PathVariable String field, Model model) {
-        List<Reservation> reservations = reservationService.findReservationWithSorting(field);
-        model.addAttribute("reservations", reservations);
-        return "reservations";
-    }
-
-    //page pagination
-    @GetMapping("/reservations/pagination/{offset}/{pageSize}")
-    public String getReservationsWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
-        Page<Reservation> reservationWithPagination = reservationService.findReservationsWithPagination(offset, pageSize);
-        model.addAttribute("reservations", reservationWithPagination);
-        return "reservations";
-    }
-
     //page pagination and sorting at the same time
-    @GetMapping("/reservations/paginationAndSort/{offset}/{pageSize}/{field}")
-    public String getReservationsWithPaginationAndSorting(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
-        Page<Reservation> reservationsWithPaginationAndSorting = reservationService.findReservationsWithPaginationAndSorting(offset, pageSize, field);
-        model.addAttribute("reservations", reservationsWithPaginationAndSorting);
-        return "reservations";
+    @GetMapping("/reservations/{projectionId}/{field}/{direction}/{offset}")
+    public String getReservationsWithPaginationAndSorting(@PathVariable("projectionId") Long projectionId,
+                                                          @PathVariable String field,
+                                                          @PathVariable String direction,
+                                                          @PathVariable int offset,
+                                                          Model model) {
+        Optional<Projection> optionalProjection = projectionService.getProjectionById(projectionId);
+
+        if (optionalProjection.isPresent()) {
+            Projection projection = optionalProjection.get();
+            Page<Reservation> reservationsPage = reservationService.findReservationsWithPaginationAndSorting(projectionId, offset, field, direction);
+
+            model.addAttribute("projection", projection);
+            model.addAttribute("reservations", reservationsPage.getContent()); // zawartosc
+            model.addAttribute("currentPage", reservationsPage.getNumber()); // aktualna strona
+            model.addAttribute("totalPages", reservationsPage.getTotalPages()); // liczba stron
+            model.addAttribute("sortField", field); // pole sortowania
+            model.addAttribute("sortDirection", direction);// kierunek sortowania
+            model.addAttribute("reverseSortDirection", direction.equals("asc") ? "desc" : "asc");
+
+            return "reservations";
+        } else {
+            return "redirect:/admin/projections/movie.title/asc/0";
+        }
     }
+
+
 }

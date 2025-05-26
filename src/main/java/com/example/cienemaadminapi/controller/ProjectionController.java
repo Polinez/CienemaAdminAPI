@@ -20,22 +20,8 @@ public class ProjectionController {
 
     @Autowired
     private ProjectionService projectionService;
-    @Autowired
-    private ReservationService reservationService;
 
-    @GetMapping("/projections")
-    public String projections(Model model) {
-        List<Projection> projections = projectionService.getAllProjections();
-        model.addAttribute("projections", projections);
-        return "projections";
-    }
 
-    @GetMapping("/projections/{field}")
-    public String getProjectionsWithSorting(@PathVariable String field, Model model) {
-        List<Projection> projections = projectionService.findProjectionWithSorting(field);
-        model.addAttribute("projections", projections);
-        return "projections";
-    }
 
     @GetMapping("/projections/add")
     public String addProjection(Model model) {
@@ -76,34 +62,23 @@ public class ProjectionController {
                 .orElseThrow();
     }
 
-    @GetMapping("/projections/{id}/reservations")
-    public String getProjectionReservations(@PathVariable Long id, Model model) {
-        Optional<Projection> optionalProjection = projectionService.getProjectionById(id);
 
-        if (optionalProjection.isPresent()) {
-            Projection projection = optionalProjection.get();
-            List<Reservation> reservations = reservationService.getReservationsByProjectionId(id);;
-            model.addAttribute("projection", projection);
-            model.addAttribute("reservations", reservations);
-            return "reservations";
-        } else {
-            return "redirect:/projections";
-        }
-    }
 
     //page pagination
-    @GetMapping("/projections/pagination/{offset}/{pageSize}")
-    public String getProjectionsWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
-        Page<Projection> projectionsWithPagination = projectionService.findProjectionsWithPagination(offset, pageSize);
-        model.addAttribute("projections", projectionsWithPagination);
-        return "projections";
-    }
+    @GetMapping("/projections/{field}/{direction}/{offset}")
+    public String getProjectionsWithPaginationAndSorting(@PathVariable String field,
+                                                         @PathVariable String direction,
+                                                         @PathVariable int offset,
+                                                         Model model) {
+        Page<Projection> page = projectionService.findProjectionsWithPaginationAndSorting(offset, field, direction);
 
-    //page pagination and sorting at the same time
-    @GetMapping("/projections/paginationAndSort/{offset}/{pageSize}/{field}")
-    public String getProjectionsWithPaginationAndSorting(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
-        Page<Projection> projectionsWithPaginationAndSorting = projectionService.findProjectionsWithPaginationAndSorting(offset, pageSize, field);
-        model.addAttribute("projections", projectionsWithPaginationAndSorting);
+        model.addAttribute("projections", page.getContent());
+        model.addAttribute("currentPage", page.getNumber());
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("sortField", field);
+        model.addAttribute("sortDirection", direction);
+        model.addAttribute("reverseSortDirection", direction.equals("asc") ? "desc" : "asc");
+
         return "projections";
     }
 }

@@ -5,6 +5,7 @@ import com.example.cienemaadminapi.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +45,10 @@ public class MovieService {
     }
 
     //trying to make sorting methods
-    public List<Movie> findMoviesWithSorting(String field){
-        return movieRepository.findAll(Sort.by(Sort.Direction.ASC,field));
+    public List<Movie> findMoviesWithSorting(String field, String direction) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        return movieRepository.findAll(Sort.by(sortDirection, field));
     }
-
 
     public Page<Movie> findMoviesWithPagination(int offset, int pageSize){
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize));
@@ -58,4 +59,12 @@ public class MovieService {
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return movies;
     }
+    //TODO zmienic aby nie było wpisane 5
+    public Page<Movie> findMoviesWithPaginationAndSorting(int offset, String field, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+        Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, 5, sort));
+        return movies;
+    }
+
+
 }

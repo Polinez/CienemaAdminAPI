@@ -6,15 +6,14 @@
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/navStyle.css">
     <link rel="stylesheet" href="/moviesStyles.css">
-
 </head>
 <body>
 <nav class="navbar">
     <ul>
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
-        <li><a href="/admin/movies" class="active">🎬 Filmy</a></li>
-        <li><a href="/admin/projections">🗓️ Repertuar</a></li>
-        <li><a href="/admin/users">👥 Użytkownicy</a></li>
+        <li><a href="/admin/movies/title/asc/0" class="active">🎬 Filmy</a></li>
+        <li><a href="/admin/projections/movie.title/asc/0">🗓️ Repertuar</a></li>
+        <li><a href="/admin/users/firstName/asc/0">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
 </nav>
@@ -29,19 +28,35 @@
         <table class="list-table">
             <thead>
             <tr>
-                <th>Tytuł</th>
-                <th>Reżyser</th>
-                <th>Opis</th>
+                <th>
+                    Tytuł
+                    <a th:href="@{'/admin/movies/title/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
+                </th>
+                <th>
+                    Reżyser
+                    <a th:href="@{'/admin/movies/director/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
+                </th>
+                <th>
+                    Opis
+                    <a th:href="@{'/admin/movies/description/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
+                </th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="movie : ${movies}">
-                <td th:text="${movie.title}">Tytuł filmu</td>
-                <td th:text="${movie.director}">Reżyser</td>
-                <td th:text="${movie.description}">Opis filmu</td>
+                <td th:text="${movie.title}"></td>
+                <td th:text="${movie.director}"></td>
+                <td th:text="${movie.description}"></td>
             </tr>
             </tbody>
         </table>
+        <div class="pagination">
+            <span th:text="'Strona ' +${currentPage + 1} + ' z ' + ${totalPages}">1 of 1 pages</span>
+            <a th:href="@{'/admin/movies/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage - 1}}"
+               th:if="${currentPage > 0}">«</a>
+            <a th:href="@{'/admin/movies/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage + 1}}"
+               th:if="${currentPage + 1 < totalPages}">»</a>
+        </div>
     </div>
 
     <div class="quick-actions">

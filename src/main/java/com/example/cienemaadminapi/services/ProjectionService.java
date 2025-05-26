@@ -52,8 +52,9 @@ public class ProjectionService {
         return projections;
     }
 
-    public Page<Projection> findProjectionsWithPaginationAndSorting(int offset,int pageSize,String field){
-        Page<Projection> projections = projectionRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
+    public Page<Projection> findProjectionsWithPaginationAndSorting(int offset, String field, String direction){
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+        Page<Projection> projections = projectionRepository.findAll(PageRequest.of(offset, 5, sort));
         return projections;
     }
 }
