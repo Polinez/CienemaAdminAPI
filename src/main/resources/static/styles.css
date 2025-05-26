@@ -97,6 +97,10 @@ body {
 .list-table th, .list-table td {
     text-align: center;
 }
+.list-table a {
+    text-decoration: none;
+    transition: color 0.2s;
+}
 
 /*pagination elements*/
 .pagination {
