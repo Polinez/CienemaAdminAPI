@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -71,9 +72,9 @@ public class ProjectionController {
                                                          @PathVariable int offset,
                                                          @RequestParam(name = "roomFilter", required = false) Integer roomFilter,
                                                          Model model) {
-        Page<Projection> page = projectionService.findFilteredProjections(offset, field, direction,roomFilter);
+        Page<Projection> page = projectionService.findFilteredProjections(offset, field, direction, roomFilter);
 
-        List<Integer> roomNumbers = projectionService.getDistinctRoomNumbers();
+        Set<Integer> roomNumbers = projectionService.getDistinctRoomNumbers();
 
         model.addAttribute("projections", page.getContent());
         model.addAttribute("roomNumbers", roomNumbers);

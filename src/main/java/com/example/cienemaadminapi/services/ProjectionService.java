@@ -16,6 +16,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectionService {
@@ -41,6 +43,18 @@ public class ProjectionService {
     public List<Projection> findProjectionsByLocalDate(LocalDate localDate) {
         Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         return projectionRepository.findByDate(date);
+    }
+
+    public Set<Integer> getDistinctRoomNumbers() {
+        return projectionRepository.findAll().stream()
+                .map(Projection::getRoomNumber)
+                .collect(Collectors.toSet());
+    }
+
+    public Page<Projection> findFilteredProjections(int offset, String field, String direction, int roomFilter) {
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(field).ascending() : Sort.by(field).descending();
+        PageRequest pageable = PageRequest.of(offset, 10, sort);
+        return projectionRepository.findByRoomNumber(roomFilter, pageable);
     }
 
     public List<Projection> findProjectionWithSorting(String field){
