@@ -20,8 +20,7 @@ public class ProjectionController {
 
     @Autowired
     private ProjectionService projectionService;
-    @Autowired
-    private ReservationService reservationService;
+
 
 
     @GetMapping("/projections/add")
@@ -63,20 +62,7 @@ public class ProjectionController {
                 .orElseThrow();
     }
 
-    @GetMapping("/projections/{id}/reservations")
-    public String getProjectionReservations(@PathVariable Long id, Model model) {
-        Optional<Projection> optionalProjection = projectionService.getProjectionById(id);
 
-        if (optionalProjection.isPresent()) {
-            Projection projection = optionalProjection.get();
-            List<Reservation> reservations = reservationService.getReservationsByProjectionId(id);;
-            model.addAttribute("projection", projection);
-            model.addAttribute("reservations", reservations);
-            return "reservations";
-        } else {
-            return "redirect:/projections";
-        }
-    }
 
     //page pagination
     @GetMapping("/projections/{field}/{direction}/{offset}")

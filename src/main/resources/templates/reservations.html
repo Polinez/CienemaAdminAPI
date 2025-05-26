@@ -27,21 +27,41 @@
         <table class="list-table">
             <thead>
             <tr>
-                <th>ID Rezerwacji</th>
-                <th>Cena</th>
-                <th>ID Seansu</th>
-                <th>Imie Użytkownika</th>
+                <th>
+                    ID Rezerwacji
+                    <a th:href="@{'/admin/reservations/' + ${projection.id} + '/id/' + ${reverseSortDirection} + '/' + ${currentPage}}">⮃</a>
+                </th>
+                <th>
+                    Cena
+                    <a th:href="@{'/admin/reservations/' + ${projection.id} + '/price/' + ${reverseSortDirection} + '/' + ${currentPage}}">⮃</a>
+                </th>
+                <th>
+                    ID Seansu
+                    <a th:href="@{'/admin/reservations/' + ${projection.id} + '/projection.id/' + ${reverseSortDirection} + '/' + ${currentPage}}">⮃</a>
+                </th>
+                <th>
+                    Imię Użytkownika
+                    <a th:href="@{'/admin/reservations/' + ${projection.id} + '/user.firstName/' + ${reverseSortDirection} + '/' + ${currentPage}}">⮃</a>
+                </th>
             </tr>
             </thead>
             <tbody>
-                <tr th:each="reservation : ${reservations}">
-                    <td th:text="${reservation.id}"></td>
-                    <td th:text="${reservation.price}"></td>
-                    <td th:text="${reservation.projection.id}"></td>
-                    <td th:text="${reservation.user.firstName}"></td>
-                </tr>
+            <tr th:each="reservation : ${reservations}">
+                <td th:text="${reservation.id}"></td>
+                <td th:text="${reservation.price}"></td>
+                <td th:text="${reservation.projection.id}"></td>
+                <td th:text="${reservation.user.firstName}"></td>
+            </tr>
             </tbody>
         </table>
+
+        <div class="pagination">
+            <span th:text="'Strona ' + (${currentPage} + 1) + ' z ' + ${totalPages}">1 of 1</span>
+            <a th:href="@{'/admin/reservations/' + ${projection.id} + '/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage - 1}}"
+               th:if="${currentPage > 0}">«</a>
+            <a th:href="@{'/admin/reservations/' + ${projection.id} + '/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage + 1}}"
+               th:if="${currentPage + 1 < totalPages}">»</a>
+        </div>
     </div>
 
 </main>
