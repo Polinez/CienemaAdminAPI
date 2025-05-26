@@ -12,7 +12,7 @@
     <ul>
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
         <li><a href="/admin/movies/title/asc/0">🎬 Filmy</a></li>
-        <li><a href="/admin/projections" class="active">🗓️ Repertuar</a></li>
+        <li><a href="/admin/projections/movie.title/asc/0" class="active">🗓️ Repertuar</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
@@ -28,10 +28,22 @@
         <table class="list-table">
             <thead>
             <tr>
-                <th>Tytuł filmu</th>
-                <th>Data seansu</th>
-                <th>Godzina rozpoczęcia</th>
-                <th>Sala</th>
+                <th>
+                    Tytuł filmu
+                    <a th:href="@{'/admin/projections/movie.title/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                </th>
+                <th>
+                    Data seansu
+                    <a th:href="@{'/admin/projections/date/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                </th>
+                <th>
+                    Godzina rozpoczęcia
+                    <a th:href="@{'/admin/projections/startTime/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                </th>
+                <th>
+                    Sala
+                    <a th:href="@{'/admin/projections/roomNumber/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                </th>
                 <th>Akcje</th>
             </tr>
             </thead>
@@ -42,11 +54,19 @@
                 <td th:text="${#dates.format(projection.startTime, 'HH:mm')}">Godzina</td>
                 <td th:text="${projection.roomNumber}">Sala</td>
                 <td>
-                    <a class="ticket-button" th:href="@{'/admin/projections/' + ${projection.id} + '/reservations'}" >Bilety</a>
+                    <a class="ticket-button" th:href="@{'/admin/projections/' + ${projection.id} + '/reservations'}">Bilety</a>
                 </td>
             </tr>
             </tbody>
         </table>
+
+        <div class="pagination">
+            <span th:text="'Strona ' + (${currentPage} + 1) + ' z ' + ${totalPages}">Strona 1 of 1</span>
+            <a th:if="${currentPage > 0}"
+               th:href="@{'/admin/projections/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage - 1}}">«</a>
+            <a th:if="${currentPage + 1 < totalPages}"
+               th:href="@{'/admin/projections/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage + 1}}">»</a>
+        </div>
     </div>
 
     <div class="quick-actions">
