@@ -30,19 +30,31 @@
             <tr>
                 <th>
                     Tytuł filmu
-                    <a th:href="@{'/admin/projections/movie.title/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                    <a th:href="@{'/admin/projections/movie.title/' + ${reverseSortDirection} + '/0'(roomFilter=${roomFilter})}">⮃</a>
                 </th>
                 <th>
                     Data seansu
-                    <a th:href="@{'/admin/projections/date/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                    <a th:href="@{'/admin/projections/date/' + ${reverseSortDirection} + '/0'(roomFilter=${roomFilter})}">⮃</a>
                 </th>
                 <th>
                     Godzina rozpoczęcia
-                    <a th:href="@{'/admin/projections/startTime/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                    <a th:href="@{'/admin/projections/startTime/' + ${reverseSortDirection} + '/0'(roomFilter=${roomFilter})}">⮃</a>
                 </th>
                 <th>
                     Sala
-                    <a th:href="@{'/admin/projections/roomNumber/' + ${reverseSortDirection} + '/0'}">⮃</a>
+                    <a th:href="@{'/admin/projections/roomNumber/' + ${reverseSortDirection} + '/0'(roomFilter=${roomFilter})}">⮃</a>
+
+                    <form th:action="@{/admin/projections/${sortField}/${sortDirection}/0}" method="get">
+                        <select name="roomFilter">
+                            <option value="">Wszystkie sale</option>
+                            <option th:each="roomNumber : ${roomNumbers}"
+                                    th:value="${roomNumber}"
+                                    th:text="${roomNumber}"
+                                    th:selected="${roomFilter != null and roomFilter == roomNumber}">
+                            </option>
+                        </select>
+                        <button type="submit" class="filter-button">Filtruj</button>
+                    </form>
                 </th>
                 <th>Akcje</th>
             </tr>

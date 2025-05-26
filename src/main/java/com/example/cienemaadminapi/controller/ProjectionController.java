@@ -69,15 +69,20 @@ public class ProjectionController {
     public String getProjectionsWithPaginationAndSorting(@PathVariable String field,
                                                          @PathVariable String direction,
                                                          @PathVariable int offset,
+                                                         @RequestParam(name = "roomFilter", required = false) Integer roomFilter,
                                                          Model model) {
-        Page<Projection> page = projectionService.findProjectionsWithPaginationAndSorting(offset, field, direction);
+        Page<Projection> page = projectionService.findFilteredProjections(offset, field, direction,roomFilter);
+
+        List<Integer> roomNumbers = projectionService.getDistinctRoomNumbers();
 
         model.addAttribute("projections", page.getContent());
+        model.addAttribute("roomNumbers", roomNumbers);
         model.addAttribute("currentPage", page.getNumber());
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("sortField", field);
         model.addAttribute("sortDirection", direction);
         model.addAttribute("reverseSortDirection", direction.equals("asc") ? "desc" : "asc");
+        model.addAttribute("roomFilter", roomFilter);
 
         return "projections";
     }
