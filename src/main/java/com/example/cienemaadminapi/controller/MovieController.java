@@ -4,8 +4,10 @@ import com.example.cienemaadminapi.model.Movie;
 import com.example.cienemaadminapi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +18,11 @@ import java.util.List;
 @RequestMapping("/admin")
 public class MovieController {
 
+    private final int DEFAULT_PAGE_SIZE = 5;
+
     @Autowired
     private MovieService movieService;
 
-    @GetMapping("/movies")
-    public String getMovies(Model model) {
-        List<Movie> movies = movieService.getAllMovies();
-        model.addAttribute("movies", movies);
-        return "movies";
-    }
 
     @GetMapping("/movies/add")
     public String addMovie(Model model) {
@@ -44,7 +42,7 @@ public class MovieController {
         return "redirect:/admin/movies";
     }
 
-    //please add html file when created
+    //please add an HTML file when created
     @GetMapping("/movies/update")
     public String updateMovie(@ModelAttribute("movie") Movie movie) {
         return "updateMovie";
@@ -64,30 +62,26 @@ public class MovieController {
                 .orElseThrow();
     }
 
-    //sorting data by fields (asc/desc)
-    @GetMapping("/movies/{field}")
-    public String getMoviesWithSorting(@PathVariable String field,
-                                       @RequestParam(defaultValue = "asc") String direction,
-                                       Model model) {
-        List<Movie> movies = movieService.findMoviesWithSorting(field, direction);
-        model.addAttribute("movies", movies);
-        return "movies";
-    }
-    
-
-    //page pagination
-    @GetMapping("/movies/pagination/{offset}/{pageSize}")
-    public String getMoviesWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
-        Page<Movie> movies = movieService.findMoviesWithPagination(offset, pageSize);
-        model.addAttribute("movies", movies);
-        return "movies";
-    }
 
     //page pagination and sorting at the same time
-    @GetMapping("/movies/paginationAndSort/{offset}/{pageSize}/{field}")
-    public String getMoviesWithPaginationAndSorting(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
-        Page<Movie> movies = movieService.findMoviesWithPaginationAndSorting(offset, pageSize, field);
-        model.addAttribute("movies", movies);
+    @GetMapping("/movies/{field}/{direction}/{offset}/{pageSize}")
+    public String getMoviesWithPaginationAndSorting(@PathVariable String field,
+                                                    @PathVariable String direction,
+                                                    @PathVariable int offset,
+                                                    @PathVariable int pageSize,
+                                                    Model model) {
+        Page<Movie> moviesPage = movieService.findMoviesWithPaginationAndSorting(offset, pageSize, field, direction);
+
+        // Dane do widoku
+        model.addAttribute("movies", moviesPage.getContent());  // Filmy
+        model.addAttribute("currentPage", moviesPage.getNumber());  // Aktualna strona (offset)
+        model.addAttribute("totalPages", moviesPage.getTotalPages());  // Całkowita liczba stron
+        model.addAttribute("totalItems", moviesPage.getTotalElements());  // Całkowita liczba elementów
+        model.addAttribute("pageSize", moviesPage.getSize());  // Rozmiar strony
+        model.addAttribute("sortField", field);  // Pole sortowania
+        model.addAttribute("sortDirection", direction);  // Kierunek sortowania
+        model.addAttribute("reverseSortDirection", direction.equals("asc") ? "desc" : "asc");  // Odwrotny kierunek sortowania
+
         return "movies";
     }
 }

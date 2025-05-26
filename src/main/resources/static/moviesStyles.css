@@ -2,3 +2,9 @@
 .movie-table th, .movie-table td {
     text-align: center;
 }
+.sortButton{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}

@@ -5,6 +5,7 @@ import com.example.cienemaadminapi.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -58,4 +59,11 @@ public class MovieService {
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return movies;
     }
+    public Page<Movie> findMoviesWithPaginationAndSorting(int offset, int pageSize, String field, String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+        Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize, sort));
+        return movies;
+    }
+
+
 }
