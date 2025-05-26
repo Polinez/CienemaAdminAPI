@@ -29,9 +29,21 @@
         <table class="list-table">
             <thead>
             <tr>
-                <th>Tytuł</th>
-                <th>Reżyser</th>
-                <th>Opis</th>
+                <th>
+                    Tytuł
+                    <a th:href="@{'/admin/movies/title'(direction='asc')}" title="Sortuj rosnąco">🔼</a>
+                    <a th:href="@{'/admin/movies/title'(direction='desc')}" title="Sortuj malejąco">🔽</a>
+                </th>
+                <th>
+                    Reżyser
+                    <a th:href="@{'/admin/movies/director'(direction='asc')}" title="Sortuj rosnąco">🔼</a>
+                    <a th:href="@{'/admin/movies/director'(direction='desc')}" title="Sortuj malejąco">🔽</a>
+                </th>
+                <th>
+                    Opis
+                    <a th:href="@{'/admin/movies/description'(direction='asc')}" title="Sortuj rosnąco">🔼</a>
+                    <a th:href="@{'/admin/movies/description'(direction='desc')}" title="Sortuj malejąco">🔽</a>
+                </th>
             </tr>
             </thead>
             <tbody>

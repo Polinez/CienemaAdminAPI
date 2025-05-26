@@ -44,10 +44,10 @@ public class MovieService {
     }
 
     //trying to make sorting methods
-    public List<Movie> findMoviesWithSorting(String field){
-        return movieRepository.findAll(Sort.by(Sort.Direction.ASC,field));
+    public List<Movie> findMoviesWithSorting(String field, String direction) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        return movieRepository.findAll(Sort.by(sortDirection, field));
     }
-
 
     public Page<Movie> findMoviesWithPagination(int offset, int pageSize){
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize));

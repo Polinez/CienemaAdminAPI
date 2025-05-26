@@ -64,27 +64,30 @@ public class MovieController {
                 .orElseThrow();
     }
 
-    //sorting data by fields
+    //sorting data by fields (asc/desc)
     @GetMapping("/movies/{field}")
-    public String getMoviesWithSorting(@PathVariable String field, Model model) {
-        List<Movie> movies = movieService.findMoviesWithSorting(field);
+    public String getMoviesWithSorting(@PathVariable String field,
+                                       @RequestParam(defaultValue = "asc") String direction,
+                                       Model model) {
+        List<Movie> movies = movieService.findMoviesWithSorting(field, direction);
         model.addAttribute("movies", movies);
         return "movies";
     }
+    
 
     //page pagination
     @GetMapping("/movies/pagination/{offset}/{pageSize}")
     public String getMoviesWithPagination(@PathVariable int offset, @PathVariable int pageSize, Model model) {
-        Page<Movie> moviesWithPagination = movieService.findMoviesWithPagination(offset, pageSize);
-        model.addAttribute("movies", moviesWithPagination);
+        Page<Movie> movies = movieService.findMoviesWithPagination(offset, pageSize);
+        model.addAttribute("movies", movies);
         return "movies";
     }
 
     //page pagination and sorting at the same time
     @GetMapping("/movies/paginationAndSort/{offset}/{pageSize}/{field}")
     public String getMoviesWithPaginationAndSorting(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String field, Model model) {
-        Page<Movie> moviesWithPaginationAndSorting = movieService.findMoviesWithPaginationAndSorting(offset, pageSize, field);
-        model.addAttribute("movies", moviesWithPaginationAndSorting);
+        Page<Movie> movies = movieService.findMoviesWithPaginationAndSorting(offset, pageSize, field);
+        model.addAttribute("movies", movies);
         return "movies";
     }
 }
