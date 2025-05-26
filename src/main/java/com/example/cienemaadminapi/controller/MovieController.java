@@ -18,8 +18,6 @@ import java.util.List;
 @RequestMapping("/admin")
 public class MovieController {
 
-    private final int DEFAULT_PAGE_SIZE = 5;
-
     @Autowired
     private MovieService movieService;
 
@@ -64,20 +62,17 @@ public class MovieController {
 
 
     //page pagination and sorting at the same time
-    @GetMapping("/movies/{field}/{direction}/{offset}/{pageSize}")
+    @GetMapping("/movies/{field}/{direction}/{offset}")
     public String getMoviesWithPaginationAndSorting(@PathVariable String field,
                                                     @PathVariable String direction,
                                                     @PathVariable int offset,
-                                                    @PathVariable int pageSize,
                                                     Model model) {
-        Page<Movie> moviesPage = movieService.findMoviesWithPaginationAndSorting(offset, pageSize, field, direction);
+        Page<Movie> moviesPage = movieService.findMoviesWithPaginationAndSorting(offset, field, direction);
 
         // Dane do widoku
         model.addAttribute("movies", moviesPage.getContent());  // Filmy
         model.addAttribute("currentPage", moviesPage.getNumber());  // Aktualna strona (offset)
         model.addAttribute("totalPages", moviesPage.getTotalPages());  // Całkowita liczba stron
-        model.addAttribute("totalItems", moviesPage.getTotalElements());  // Całkowita liczba elementów
-        model.addAttribute("pageSize", moviesPage.getSize());  // Rozmiar strony
         model.addAttribute("sortField", field);  // Pole sortowania
         model.addAttribute("sortDirection", direction);  // Kierunek sortowania
         model.addAttribute("reverseSortDirection", direction.equals("asc") ? "desc" : "asc");  // Odwrotny kierunek sortowania

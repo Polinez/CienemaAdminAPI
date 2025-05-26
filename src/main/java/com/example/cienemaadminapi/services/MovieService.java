@@ -59,9 +59,10 @@ public class MovieService {
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return movies;
     }
-    public Page<Movie> findMoviesWithPaginationAndSorting(int offset, int pageSize, String field, String direction) {
+    //TODO zmienic aby nie było wpisane 5
+    public Page<Movie> findMoviesWithPaginationAndSorting(int offset, String field, String direction) {
         Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
-        Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize, sort));
+        Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, 5, sort));
         return movies;
     }
 

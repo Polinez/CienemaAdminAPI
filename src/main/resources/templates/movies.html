@@ -6,13 +6,12 @@
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/navStyle.css">
     <link rel="stylesheet" href="/moviesStyles.css">
-
 </head>
 <body>
 <nav class="navbar">
     <ul>
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
-        <li><a href="/admin/movies/title/asc/0/5" class="active">🎬 Filmy</a></li>
+        <li><a href="/admin/movies/title/asc/0" class="active">🎬 Filmy</a></li>
         <li><a href="/admin/projections">🗓️ Repertuar</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
@@ -31,17 +30,16 @@
             <tr>
                 <th>
                     Tytuł
-                    <a th:href="@{'/admin/movies/title/' + ${reverseSortDirection} + '/' + ${currentPage} + '/' + ${pageSize}}" >⮃</a>
+                    <a th:href="@{'/admin/movies/title/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
                 </th>
                 <th>
                     Reżyser
-                    <a th:href="@{'/admin/movies/director/' + ${reverseSortDirection} + '/' + ${currentPage} + '/' + ${pageSize}}" >⮃</a>
+                    <a th:href="@{'/admin/movies/director/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
                 </th>
                 <th>
                     Opis
-                    <a th:href="@{'/admin/movies/description/' + ${reverseSortDirection} + '/' + ${currentPage} + '/' + ${pageSize}}" >⮃</a>
+                    <a th:href="@{'/admin/movies/description/' + ${reverseSortDirection} + '/' + ${currentPage} }">⮃</a>
                 </th>
-
             </tr>
             </thead>
             <tbody>
@@ -53,19 +51,9 @@
             </tbody>
         </table>
         <div class="pagination">
-            <form th:action="@{'/admin/movies/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage} + '/' + ${pageSize}}" method="get">
-                <label for="pageSize">Ilość pozycji na stronie: </label>
-                <select id="pageSize" name="pageSize" onchange="this.form.submit()">
-                    <option th:value="5" th:selected="${pageSize == 5}">5</option>
-                    <option th:value="10" th:selected="${pageSize == 10}">10</option>
-                    <option th:value="20" th:selected="${pageSize == 20}">20</option>
-                </select>
-            </form>
-
-            <span th:text="${currentPage+1} + ' z '+ ${totalPages}">1 of 20 pages</span>
-            <a th:if="${currentPage > 0}" th:href="@{'/admin/movies/' + ${sortField} + '/' + ${sortDirection} + '/' + (${currentPage - 1 }) + '/' + ${pageSize}}">«</a>
-            <a th:if="${currentPage + 1 < totalPages}" th:href="@{'/admin/movies/' + ${sortField} + '/' + ${sortDirection} + '/' + (${currentPage + 1 }) + '/' + ${pageSize}}">»</a>
-
+            <span th:text="${currentPage + 1} + ' z ' + ${totalPages}">1 of 20 pages</span>
+            <a th:href="@{|/admin/movies/${sortField}/${sortDirection}/${currentPage - 1}|}" th:if="${currentPage > 0}">«</a>
+            <a th:href="@{|/admin/movies/${sortField}/${sortDirection}/${currentPage + 1}|}" th:if="${currentPage + 1 < totalPages}">»</a>
         </div>
     </div>
 
