@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 public class ReservationController {
-
     @Autowired
     private ProjectionService projectionService;
     @Autowired
@@ -55,6 +54,4 @@ public class ReservationController {
             return "redirect:/admin/projections/movie.title/asc/0";
         }
     }
-
-
 }

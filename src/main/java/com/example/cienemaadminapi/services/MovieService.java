@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @Service
 public class MovieService {
-
     @Autowired
     private MovieRepository movieRepository;
 
@@ -59,7 +58,7 @@ public class MovieService {
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
         return movies;
     }
-    //TODO zmienic aby nie było wpisane 5
+
     public Page<Movie> findMoviesWithPaginationAndSorting(int offset, String field, String direction) {
         Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, 5, sort));

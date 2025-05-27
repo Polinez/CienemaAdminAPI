@@ -16,10 +16,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class UserController {
-
     @Autowired
     private UserService userService;
-
 
     //page pagination
     @GetMapping("/users/{field}/{direction}/{offset}")

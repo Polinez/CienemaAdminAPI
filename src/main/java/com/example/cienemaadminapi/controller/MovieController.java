@@ -17,10 +17,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class MovieController {
-
     @Autowired
     private MovieService movieService;
-
 
     @GetMapping("/movies/add")
     public String addMovie(Model model) {

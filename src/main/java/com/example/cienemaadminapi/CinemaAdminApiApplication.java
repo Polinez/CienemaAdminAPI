@@ -23,7 +23,7 @@ import java.util.List;
 
 @SpringBootApplication
 public class CinemaAdminApiApplication {
-
+    
     public static void main(String[] args) {
         SpringApplication.run(CinemaAdminApiApplication.class, args);
     }
