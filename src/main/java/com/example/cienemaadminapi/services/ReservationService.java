@@ -43,11 +43,9 @@ public class ReservationService {
         return reservationRepository.findByCreatedAtGreaterThanEqualAndCreatedAtLessThan(startOfDay, startOfNextDay);
     }
 
-
     public Page<Reservation> findReservationsWithPaginationAndSorting(Long projectionId, int offset, String field, String direction) {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(field).ascending() : Sort.by(field).descending();
         PageRequest pageRequest = PageRequest.of(offset, 10, sort);
         return reservationRepository.findByProjectionId(projectionId, pageRequest);
     }
-
 }

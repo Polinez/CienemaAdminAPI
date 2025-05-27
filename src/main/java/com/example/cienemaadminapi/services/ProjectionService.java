@@ -51,10 +51,16 @@ public class ProjectionService {
                 .collect(Collectors.toSet());
     }
 
-    public Page<Projection> findFilteredProjections(int offset, String field, String direction, int roomFilter) {
+    public Page<Projection> findFilteredProjections(int offset, String field, String direction, Integer roomFilter) {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(field).ascending() : Sort.by(field).descending();
         PageRequest pageable = PageRequest.of(offset, 10, sort);
-        return projectionRepository.findByRoomNumber(roomFilter, pageable);
+
+        if (roomFilter != null) {
+            return projectionRepository.findByRoomNumber(roomFilter, pageable);
+        }
+        else {
+            return projectionRepository.findAll(pageable);
+        }
     }
 
     public List<Projection> findProjectionWithSorting(String field){
