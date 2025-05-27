@@ -11,9 +11,9 @@
 <nav class="navbar">
     <ul>
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
-        <li><a href="/admin/movies/title/asc/0">🎬 Filmy</a></li>
-        <li><a href="/admin/projections/movie.title/asc/0" class="active">🗓️ Repertuar</a></li>
-        <li><a href="/admin/users/firstName/asc/0">👥 Użytkownicy</a></li>
+        <li><a th:href="@{'/admin/movies/title/asc/0'}">🎬 Filmy</a></li>
+        <li><a th:href="@{'/admin/projections/movie.title/asc/0'}" class="active">🗓️ Repertuar</a></li>
+        <li><a th:href="@{'/admin/users/firstName/asc/0'}">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
 </nav>
@@ -24,21 +24,22 @@
     </div>
 
     <div class="movie-form-container">
-        <form th:action="@{/admin/projection/add}" method="post" class="movie-form">
+        <form th:action="@{/admin/projections/add}" method="post" class="movie-form">
             <div class="form-group">
                 <label for="movieId">Film</label>
                 <select id="movieId" name="movieId" required>
                     <option value="">-- Wybierz film --</option>
                     <option th:each="movie : ${movies}"
                             th:value="${movie.id}"
-                            th:text="${movie.title}">
+                            th:text="${movie.title + ' (' + movie.duration + ' min)'}">
                     </option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="date">Data seansu</label>
-                <input type="date" id="date" name="date" required>
+                <input type="date" id="date" name="date"
+                       th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required>
             </div>
 
             <div class="form-group">
@@ -50,10 +51,10 @@
                 <label for="hall">Sala</label>
                 <select id="hall" name="hall" required>
                     <option value="">-- Wybierz salę --</option>
-                    <option value="1">Sala 1</option>
-                    <option value="2">Sala 2</option>
-                    <option value="3">Sala 3</option>
-                    <!-- tutaj trzeba będzie ładować sale z backendu/ewentualnie stałe dać jak tego nie uwzględniamy -->
+                    <option th:each="room : ${#numbers.sequence(1, 5)}"
+                            th:value="${room}"
+                            th:text="'Sala ' + ${room}">
+                    </option>
                 </select>
             </div>
 

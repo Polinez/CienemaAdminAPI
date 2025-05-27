@@ -3,6 +3,7 @@ package com.example.cienemaadminapi.services;
 import com.example.cienemaadminapi.model.Movie;
 import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.model.Reservation;
+import com.example.cienemaadminapi.repository.MovieRepository;
 import com.example.cienemaadminapi.repository.ProjectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,8 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +26,8 @@ import java.util.stream.Collectors;
 public class ProjectionService {
     @Autowired
     private ProjectionRepository projectionRepository;
+    @Autowired
+    private MovieRepository movieRepository;
 
     public List<Projection> getAllProjections() {
         return projectionRepository.findAll();
@@ -33,6 +38,19 @@ public class ProjectionService {
     }
 
     public Projection addProjection(Projection projection) {
+        return projectionRepository.save(projection);
+    }
+
+    public Projection addProjectionWithMovie(Long movieId, LocalDate date, LocalTime time, Integer roomNumber) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Film nie istnieje"));
+
+        Projection projection = new Projection();
+        projection.setMovie(movie);
+        projection.setDate(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        projection.setStartTime(Time.valueOf(time));
+        projection.setRoomNumber(roomNumber);
+
         return projectionRepository.save(projection);
     }
 
