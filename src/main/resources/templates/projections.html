@@ -44,7 +44,7 @@
                     Sala
                     <a th:href="@{'/admin/projections/roomNumber/' + ${reverseSortDirection} + '/0'(roomFilter=${roomFilter})}">⮃</a>
 
-                    <form th:action="@{/admin/projections/${sortField}/${sortDirection}/0}" method="get">
+                    <form th:action="@{/admin/projections/{field}/{direction}/0(field=${sortField}, direction=${sortDirection})}" method="get">
                         <select name="roomFilter">
                             <option value="">Wszystkie sale</option>
                             <option th:each="roomNumber : ${roomNumbers}"
@@ -75,10 +75,11 @@
         <div class="pagination">
             <span th:text="'Strona ' + (${currentPage} + 1) + ' z ' + ${totalPages}">Strona 1 of 1</span>
             <a th:if="${currentPage > 0}"
-               th:href="@{'/admin/projections/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage - 1}}">«</a>
+               th:href="@{/admin/projections/{field}/{direction}/{offset}(field=${sortField}, direction=${sortDirection}, offset=${currentPage - 1}, roomFilter=${roomFilter})}">«</a>
             <a th:if="${currentPage + 1 < totalPages}"
-               th:href="@{'/admin/projections/' + ${sortField} + '/' + ${sortDirection} + '/' + ${currentPage + 1}}">»</a>
+               th:href="@{/admin/projections/{field}/{direction}/{offset}(field=${sortField}, direction=${sortDirection}, offset=${currentPage + 1}, roomFilter=${roomFilter})}">»</a>
         </div>
+
     </div>
 
     <div class="quick-actions">
