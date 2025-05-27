@@ -29,7 +29,7 @@ public class MovieController {
     @PostMapping("/movies/add")
     public String addMovie(@ModelAttribute("movie") Movie movie) {
         movieService.addMovie(movie);
-        return "redirect:/admin/movies";
+        return "redirect:/admin/movies/title/asc/0";
     }
 
     @DeleteMapping("/movies/delete")
@@ -38,7 +38,6 @@ public class MovieController {
         return "redirect:/admin/movies";
     }
 
-    //please add an HTML file when created
     @GetMapping("/movies/update")
     public String updateMovie(@ModelAttribute("movie") Movie movie) {
         return "updateMovie";
