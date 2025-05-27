@@ -53,7 +53,7 @@ public class ProjectionService {
 
     public Page<Projection> findFilteredProjections(int offset, String field, String direction, Integer roomFilter) {
         Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(field).ascending() : Sort.by(field).descending();
-        PageRequest pageable = PageRequest.of(offset, 10, sort);
+        PageRequest pageable = PageRequest.of(offset, 5, sort);
 
         if (roomFilter != null) {
             return projectionRepository.findByRoomNumber(roomFilter, pageable);
