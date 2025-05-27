@@ -19,7 +19,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class DashboardController {
-
     @Autowired
     private ReservationService reservationService;
     @Autowired

@@ -9,6 +9,7 @@ import com.example.cienemaadminapi.model.Projection;
 import com.example.cienemaadminapi.model.Reservation;
 import com.example.cienemaadminapi.model.User;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.CommandLineRunner;
 
@@ -19,21 +20,14 @@ import java.util.List;
 
 @Component
 public class SampleDataRunner implements CommandLineRunner{
-
-    private final MovieRepository movieRepository;
-    private final UserRepository userRepository;
-    private final ProjectionRepository projectionRepository;
-    private final ReservationRepository reservationRepository;
-
-    public SampleDataRunner(MovieRepository movieRepository,
-                            UserRepository userRepository,
-                            ProjectionRepository projectionRepository,
-                            ReservationRepository reservationRepository) {
-        this.movieRepository = movieRepository;
-        this.userRepository = userRepository;
-        this.projectionRepository = projectionRepository;
-        this.reservationRepository = reservationRepository;
-    }
+    @Autowired
+    private MovieRepository movieRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ProjectionRepository projectionRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Transactional
     @Override
@@ -50,7 +44,6 @@ public class SampleDataRunner implements CommandLineRunner{
         Movie movie1 = movieRepository.save(new Movie("Star Wars", "abcabc", "Tarantino", 120));
         Movie movie2 = movieRepository.save(new Movie("Harry Potter", "abcabc", "Python", 90));
         Movie movie3 = movieRepository.save(new Movie("Forrest Gump", "abcabc", "Allen", 70));
-
 
         Projection projection1 = projectionRepository.save(new Projection(movie1, Date.valueOf("2025-07-15"), Time.valueOf("17:00:00"), 3));
         Projection projection2 = projectionRepository.save(new Projection(movie2, Date.valueOf("2025-05-28"), Time.valueOf("21:00:00"), 1));

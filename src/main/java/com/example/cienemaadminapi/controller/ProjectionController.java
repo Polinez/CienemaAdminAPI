@@ -22,8 +22,6 @@ public class ProjectionController {
     @Autowired
     private ProjectionService projectionService;
 
-
-
     @GetMapping("/projections/add")
     public String addProjection(Model model) {
         model.addAttribute("projection", new Projection());
