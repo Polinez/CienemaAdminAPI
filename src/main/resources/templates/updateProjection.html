@@ -41,58 +41,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Przykładowe rekordy (w rzeczywistej aplikacji będą zastąpione przez th:each) -->
-                <tr>
-                    <td>Avengers: Koniec gry</td>
-                    <td>2025-11-15</td>
-                    <td>18:30</td>
-                    <td>Sala 1</td>
-                    <td class="action-buttons">
-                        <a href="/admin/projections/update/1" class="btn btn-primary btn-sm">Edytuj</a>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="1">Usuń</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Interstellar</td>
-                    <td>2025-11-15</td>
-                    <td>21:00</td>
-                    <td>Sala 2</td>
-                    <td class="action-buttons">
-                        <a href="/admin/projections/update/2" class="btn btn-primary btn-sm">Edytuj</a>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="2">Usuń</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ojciec chrzestny</td>
-                    <td>2025-11-16</td>
-                    <td>19:15</td>
-                    <td>Sala 3</td>
-                    <td class="action-buttons">
-                        <a href="/admin/projections/update/3" class="btn btn-primary btn-sm">Edytuj</a>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="3">Usuń</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Forrest Gump</td>
-                    <td>2025-11-16</td>
-                    <td>17:00</td>
-                    <td>Sala 1</td>
-                    <td class="action-buttons">
-                        <a href="/admin/projections/update/4" class="btn btn-primary btn-sm">Edytuj</a>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="4">Usuń</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Incepcja</td>
-                    <td>2025-11-17</td>
-                    <td>20:30</td>
-                    <td>Sala 2</td>
-                    <td class="action-buttons">
-                        <a href="/admin/projections/update/5" class="btn btn-primary btn-sm">Edytuj</a>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="5">Usuń</button>
-                    </td>
-                </tr>
-                <!-- W rzeczywistej aplikacji będzie to generowane dynamicznie:
                 <tr th:each="projection : ${projections}">
                     <td th:text="${projection.movie.title}">Tytuł filmu</td>
                     <td th:text="${#dates.format(projection.date, 'yyyy-MM-dd')}">Data seansu</td>
@@ -103,7 +51,6 @@
                         <button class="btn btn-danger btn-sm delete-btn" th:data-id="${projection.id}">Usuń</button>
                     </td>
                 </tr>
-                -->
                 </tbody>
             </table>
         </div>
@@ -164,21 +111,27 @@
     document.getElementById('confirmDelete').addEventListener('click', () => {
         if(currentProjectionId) {
             fetch('/admin/projections/delete/' + currentProjectionId, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
-                .then(response => {
+                .then(async response => {
+                    const data = await response.text();
                     if(response.ok) {
                         window.location.reload();
                     } else {
-                        alert('Wystąpił błąd podczas usuwania seansu');
+                        throw new Error(data || 'Wystąpił błąd podczas usuwania seansu');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Wystąpił błąd podczas usuwania seansu');
+                    alert(error.message);
+                })
+                .finally(() => {
+                    modal.style.display = 'none';
                 });
         }
-        modal.style.display = 'none';
     });
 
     window.addEventListener('click', (e) => {

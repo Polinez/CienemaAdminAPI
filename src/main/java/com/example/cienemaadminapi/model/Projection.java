@@ -24,7 +24,7 @@ public class Projection {
     private Time startTime;
     private int roomNumber;
 
-    @OneToMany(mappedBy = "projection", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "projection", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations;
 
     public Projection() {

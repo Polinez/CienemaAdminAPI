@@ -9,6 +9,8 @@ import com.example.cienemaadminapi.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,16 +54,21 @@ public class ProjectionController {
         }
     }
 
-    @DeleteMapping("/projections/delete")
-    public String deleteProjection(@ModelAttribute("projection") Projection projection) {
-        projectionService.deleteProjectionById(projection.getId());
-        return "redirect:/projections";
+    @DeleteMapping("/projections/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<String> deleteProjection(@PathVariable Long id) {
+        try {
+            projectionService.deleteProjectionById(id);
+            return ResponseEntity.ok("Seans został usunięty pomyślnie");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Wystąpił błąd podczas usuwania seansu: " + e.getMessage());
+        }
     }
 
-    //please add html file when created
     @GetMapping("/projections/update")
-    public String updateProjection(@ModelAttribute("projection") Projection projection) {
-
+    public String updateProjection(@ModelAttribute("projection") Projection projection, Model model) {
+        model.addAttribute("projections", projectionService.getAllProjections());
         return "updateProjection";
     }
 

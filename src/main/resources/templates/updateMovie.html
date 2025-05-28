@@ -11,8 +11,8 @@
 <nav class="navbar">
     <ul>
         <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
-        <li><a href="/admin/movies" class="active">🎬 Filmy</a></li>
-        <li><a href="/admin/projections">🗓️ Repertuar</a></li>
+        <li><a href="/admin/movies/title/asc/0" class="active">🎬 Filmy</a></li>
+        <li><a href="/admin/projections/movie.title/asc/0">🗓️ Repertuar</a></li>
         <li><a href="/admin/users">👥 Użytkownicy</a></li>
         <li><a href="/">🚪 Wyloguj się</a></li>
     </ul>
@@ -108,21 +108,27 @@
     document.getElementById('confirmDelete').addEventListener('click', () => {
         if(currentMovieId) {
             fetch('/admin/movies/delete/' + currentMovieId, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
-                .then(response => {
+                .then(async response => {
+                    const data = await response.text();
                     if(response.ok) {
-                        window.location.reload();
+                        window.location.reload(); // Odśwież stronę po sukcesie
                     } else {
-                        alert('Wystąpił błąd podczas usuwania filmu');
+                        throw new Error(data || 'Wystąpił błąd podczas usuwania filmu');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Wystąpił błąd podczas usuwania filmu');
+                    alert(error.message);
+                })
+                .finally(() => {
+                    modal.style.display = 'none';
                 });
         }
-        modal.style.display = 'none';
     });
 
     window.addEventListener('click', (e) => {
