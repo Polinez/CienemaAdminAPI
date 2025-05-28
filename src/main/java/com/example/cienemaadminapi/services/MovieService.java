@@ -39,8 +39,8 @@ public class MovieService {
         return null;
     }
 
-    public void deleteMovie(Movie movie) {
-        movieRepository.delete(movie);
+    public void deleteMovieById(Long id) {
+        movieRepository.deleteById(id);
     }
 
     //trying to make sorting methods

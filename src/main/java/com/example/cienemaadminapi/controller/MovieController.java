@@ -5,6 +5,8 @@ import com.example.cienemaadminapi.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.data.domain.Sort;
@@ -32,14 +34,21 @@ public class MovieController {
         return "redirect:/admin/movies/title/asc/0";
     }
 
-    @DeleteMapping("/movies/delete")
-    public String deleteMovie(@ModelAttribute("movie") Movie movie) {
-        movieService.deleteMovie(movie);
-        return "redirect:/admin/movies";
+    @DeleteMapping("/movies/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<String> deleteMovie(@PathVariable Long id) {
+        try {
+            movieService.deleteMovieById(id);
+            return ResponseEntity.ok("Film został usunięty pomyślnie");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Wystąpił błąd podczas usuwania filmu: " + e.getMessage());
+        }
     }
 
     @GetMapping("/movies/update")
-    public String updateMovie(@ModelAttribute("movie") Movie movie) {
+    public String updateMovie(@ModelAttribute("movie") Movie movie, Model model) {
+        model.addAttribute("movies", movieService.getAllMovies());
         return "updateMovie";
     }
 
