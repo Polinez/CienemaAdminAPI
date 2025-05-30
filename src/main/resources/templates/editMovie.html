@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Edytuj film</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/navStyle.css">
+</head>
+<body>
+<nav class="navbar">
+  <ul>
+    <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
+    <li><a href="/admin/movies">🎬 Filmy</a></li>
+    <li><a href="/admin/projections">🗓️ Repertuar</a></li>
+    <li><a href="/admin/users">👥 Użytkownicy</a></li>
+    <li><a href="/">🚪 Wyloguj się</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">Edytuj film</h1>
+  </div>
+
+  <div class="container">
+    <form th:action="@{/admin/movies/update/{id}(id=${movie.id})}" th:object="${movie}" method="post">
+      <div class="form-group">
+        <label for="title">Tytuł:</label>
+        <input type="text" id="title" th:field="*{title}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="director">Reżyser:</label>
+        <input type="text" id="director" th:field="*{director}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Opis:</label>
+        <textarea id="description" th:field="*{description}" rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Czas trwania (minuty):</label>
+        <input type="number" id="duration" th:field="*{duration}" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        <a th:href="@{/admin/movies}" class="btn btn-secondary">Anuluj</a>
+      </div>
+    </form>
+  </div>
+</main>
+</body>
+</html>
