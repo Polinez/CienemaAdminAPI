@@ -72,20 +72,45 @@ public class ProjectionController {
         return "updateProjection";
     }
 
-    @PutMapping("/projections/update/{id}")
-    public String updateProjection(@PathVariable Long id, @RequestBody Projection newProjection) {
-        return projectionService.getProjectionById(id)
-                .map(projection -> {
-                    projection.setMovie(newProjection.getMovie());
-                    projection.setDate(newProjection.getDate());
-                    projection.setDate(newProjection.getStartTime());
-                    projection.setRoomNumber(newProjection.getRoomNumber());
-                    projectionService.addProjection(projection);
-                    return "redirect:/projections";
-                })
-                .orElseThrow();
+
+    @GetMapping("/projections/update/{id}")
+    public String showEditProjectionForm(@PathVariable Long id, Model model) {
+        Optional<Projection> optionalProjection = projectionService.getProjectionById(id);
+        if (optionalProjection.isPresent()) {
+            model.addAttribute("projection", optionalProjection.get());
+            model.addAttribute("movies", movieRepository.findAll());
+            return "editProjection";
+        } else {
+            return "redirect:/admin/projections/movie.title/asc/0";
+        }
     }
 
+@PostMapping("/projections/update/{id}")
+public String handleEditProjection(
+        @PathVariable Long id,
+        @RequestParam Long movieId,
+        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+        @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime startTime,
+        @RequestParam Integer roomNumber,
+        RedirectAttributes redirectAttributes) {
+
+    Optional<Projection> optionalProjection = projectionService.getProjectionById(id);
+    Optional<Movie> optionalMovie = movieRepository.findById(movieId);
+
+    if (optionalProjection.isPresent() && optionalMovie.isPresent()) {
+        Projection projection = optionalProjection.get();
+        projection.setMovie(optionalMovie.get());
+        projection.setDate(java.sql.Date.valueOf(date));
+        projection.setStartTime(java.sql.Time.valueOf(startTime));
+        projection.setRoomNumber(roomNumber);
+
+        projectionService.addProjection(projection);
+        return "redirect:/admin/projections/update";
+    }
+
+    redirectAttributes.addFlashAttribute("error", "Nie udało się zaktualizować seansu.");
+    return "redirect:/admin/projections/update";
+}
 
     //page pagination
     @GetMapping("/projections/{field}/{direction}/{offset}")

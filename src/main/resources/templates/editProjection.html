@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edytuj seans</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/navStyle.css">
+    <link rel="stylesheet" href="/addMovieStyle.css">
 </head>
 <body>
+<nav class="navbar">
+    <ul>
+        <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
+        <li><a th:href="@{'/admin/movies/title/asc/0'}">🎬 Filmy</a></li>
+        <li><a th:href="@{'/admin/projections/movie.title/asc/0'}" class="active">🗓️ Repertuar</a></li>
+        <li><a th:href="@{'/admin/users/firstName/asc/0'}">👥 Użytkownicy</a></li>
+        <li><a href="/">🚪 Wyloguj się</a></li>
+    </ul>
+</nav>
 
+<main>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Edytuj seans</h1>
+    </div>
+
+    <div class="movie-form-container">
+        <form th:action="@{'/admin/projections/update/' + ${projection.id}}" method="post" th:object="${projection}" class="movie-form">
+            <div class="form-group">
+                <label for="movieId">Film</label>
+                <select id="movieId" name="movieId" required>
+                    <option value="">-- Wybierz film --</option>
+                    <option th:each="movie : ${movies}"
+                            th:value="${movie.id}"
+                            th:text="${movie.title + ' (' + movie.duration + ' min)'}"
+                            th:selected="${movie.id == projection.movie.id}">
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Data seansu</label>
+                <input type="date" id="date" name="date"
+                       th:value="${#dates.format(projection.date, 'yyyy-MM-dd')}"
+                       th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="time">Godzina rozpoczęcia</label>
+                <input type="time" id="time" name="startTime"
+                       th:value="${#dates.format(projection.startTime, 'HH:mm')}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hall">Sala</label>
+                <select id="hall" name="roomNumber" required>
+                    <option value="">-- Wybierz salę --</option>
+                    <option th:each="room : ${#numbers.sequence(1, 5)}"
+                            th:value="${room}"
+                            th:text="'Sala ' + ${room}"
+                            th:selected="${room == projection.roomNumber}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="form-btn form-btn-primary">Zapisz zmiany</button>
+                <button type="button" class="form-btn form-btn-secondary" onclick="window.location.href='/admin/projections/movie.title/asc/0'">Anuluj</button>
+            </div>
+        </form>
+
+    </div>
+</main>
 </body>
 </html>
