@@ -52,19 +52,6 @@ public class MovieController {
         return "updateMovie";
     }
 
-//    @PutMapping("/movie/update/{id}")
-//    public String updateMovie(@PathVariable Long id, @RequestBody Movie newMovie) {
-//        return movieService.getMovieById(id)
-//                .map(movie -> {
-//                    movie.setTitle(newMovie.getTitle());
-//                    movie.setDescription(newMovie.getDescription());
-//                    movie.setDirector(newMovie.getDirector());
-//                    movie.setDuration(newMovie.getDuration());
-//                    movieService.addMovie(movie);
-//                    return "redirect:/movies";
-//                })
-//                .orElseThrow();
-//    }
     @GetMapping("/movies/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Movie movie = movieService.getMovieById(id)
@@ -76,7 +63,7 @@ public class MovieController {
     @PostMapping("/movies/update/{id}")
     public String updateMovieWithId(@PathVariable Long id, @ModelAttribute("movie") Movie updatedMovie) {
         movieService.updateMovie(id, updatedMovie);
-        return "redirect:/admin/movies";
+        return "redirect:/admin/movies/update";
     }
 
 

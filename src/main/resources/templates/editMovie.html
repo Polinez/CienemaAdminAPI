@@ -5,14 +5,15 @@
   <title>Edytuj film</title>
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/navStyle.css">
+  <link rel="stylesheet" href="/addMovieStyle.css">
 </head>
 <body>
 <nav class="navbar">
   <ul>
     <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
-    <li><a href="/admin/movies">🎬 Filmy</a></li>
-    <li><a href="/admin/projections">🗓️ Repertuar</a></li>
-    <li><a href="/admin/users">👥 Użytkownicy</a></li>
+    <li><a href="/admin/movies/title/asc/0" class="active">🎬 Filmy</a></li>
+    <li><a href="/admin/projections/movie.title/asc/0">🗓️ Repertuar</a></li>
+    <li><a href="/admin/users/firstName/asc/0">👥 Użytkownicy</a></li>
     <li><a href="/">🚪 Wyloguj się</a></li>
   </ul>
 </nav>
@@ -22,7 +23,7 @@
     <h1 class="dashboard-title">Edytuj film</h1>
   </div>
 
-  <div class="container">
+  <div class="movie-form-container">
     <form th:action="@{/admin/movies/update/{id}(id=${movie.id})}" th:object="${movie}" method="post">
       <div class="form-group">
         <label for="title">Tytuł:</label>
@@ -45,8 +46,8 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-        <a th:href="@{/admin/movies}" class="btn btn-secondary">Anuluj</a>
+        <button type="submit" class="form-btn form-btn-primary">Zapisz zmiany</button>
+        <button type="button" class="form-btn form-btn-secondary" onclick="window.location.href='/admin/movies/update'">Anuluj</button>
       </div>
     </form>
   </div>
