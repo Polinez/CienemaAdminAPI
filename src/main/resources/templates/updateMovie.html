@@ -45,10 +45,8 @@
                     <td th:text="${movie.director}"></td>
                     <td th:text="${movie.description}"></td>
                     <td class="action-buttons">
-                        <a th:href="@{'/admin/movies/update/' + ${movie.id}}"
-                           class="btn btn-primary btn-sm">Edytuj</a>
-                        <button class="btn btn-danger btn-sm delete-btn"
-                                th:data-id="${movie.id}">Usuń</button>
+                        <a th:href="@{'/admin/movies/edit/' + ${movie.id}}" class="btn btn-primary btn-sm">Edytuj</a>
+                        <button class="btn btn-danger btn-sm delete-btn" th:data-id="${movie.id}">Usuń</button>
                     </td>
                 </tr>
                 </tbody>

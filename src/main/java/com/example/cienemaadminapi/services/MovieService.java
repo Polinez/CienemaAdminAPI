@@ -29,14 +29,16 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public Movie updateMovie(Long id, Movie movie) {
-        Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isPresent()) {
-            movieOptional.get().setTitle(movie.getTitle());
-            movieOptional.get().setDescription(movie.getDescription());
-            return movieRepository.save(movieOptional.get());
-        }
-        return null;
+    public Movie updateMovie(Long id, Movie updatedMovie) {
+        return movieRepository.findById(id)
+                .map(movie -> {
+                    movie.setTitle(updatedMovie.getTitle());
+                    movie.setDirector(updatedMovie.getDirector());
+                    movie.setDescription(updatedMovie.getDescription());
+                    movie.setDuration(updatedMovie.getDuration());
+                    return movieRepository.save(movie);
+                })
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono filmu o ID: " + id));
     }
 
     public void deleteMovieById(Long id) {
