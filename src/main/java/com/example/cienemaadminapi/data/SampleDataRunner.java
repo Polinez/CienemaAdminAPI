@@ -60,36 +60,69 @@ public class SampleDataRunner implements CommandLineRunner{
         reservationRepository.save(new Reservation(user2, projection1, seats, 32.00));
         reservationRepository.save(new Reservation(user3, projection2, seats, 19.00));
 
+        // Generowanie przykładowych danych
+
         // Generowanie użytkowników
         List<User> users = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
-            users.add(new User("user" + i, "Name" + i, "Surname" + i, "user" + i + "@example.com", "password" + i));
+        String[] firstNames = {"Alice", "Bob", "Charlie", "Diana", "Eve", "Frank", "Grace", "Hannah", "Ivy", "Jack"};
+        String[] lastNames = {"Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"};
+        for (String firstName : firstNames) {
+            for (String lastName : lastNames) {
+                users.add(new User(
+                        "user_" + firstName.toLowerCase() + "_" + lastName.toLowerCase(),
+                        firstName,
+                        lastName,
+                        firstName.toLowerCase() + "." + lastName.toLowerCase() + "@example.com",
+                        "password_" + firstName.toLowerCase()
+                ));
+            }
         }
         userRepository.saveAll(users);
 
         // Generowanie filmów
         List<Movie> movies = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
-            movies.add(new Movie("Movie" + i, "Description" + i, "Director" + i, 90 + i % 30));
+        String[] movieTitles = {"Eternal Dawn", "Shadow's Whisper", "Echoes of Silence", "Crystal Horizons", "Iron Tempest"};
+        String[] directors = {"Quentin Tarantino", "Christopher Nolan", "Steven Spielberg", "Greta Gerwig", "Sofia Coppola"};
+        String[] descriptions = {"A tale of love and betrayal.", "A thrilling journey through the unknown.", "A story of hope and courage."};
+        for (String title : movieTitles) {
+            for (String director : directors) {
+                movies.add(new Movie(
+                        title + " - " + director.split(" ")[0],
+                        descriptions[directors.length % descriptions.length],
+                        director,
+                        100
+                ));
+            }
         }
         movieRepository.saveAll(movies);
 
         // Generowanie projekcji
         List<Projection> projections = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
-            Movie movie = movies.get(i % movies.size());
-            projections.add(new Projection(movie, Date.valueOf("2025-07-" + ((i % 30) + 1)),
-                    Time.valueOf((12 + i % 12) + ":00:00"), i % 5 + 1));
+        String[] times = {"12:00:00", "15:00:00", "18:00:00", "20:00:00"};
+        for (String time : times) {
+            for (Movie movie : movies) {
+                projections.add(new Projection(
+                        movie,
+                        Date.valueOf("2025-07-15"),
+                        Time.valueOf(time),
+                        3
+                ));
+            }
         }
         projectionRepository.saveAll(projections);
 
         // Generowanie rezerwacji
         List<Reservation> reservations = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
-            User user = users.get(i % users.size());
-            Projection projection = projections.get(i % projections.size());
-            List<Integer> seats2 = List.of((i % 50) + 1, (i % 50) + 2); // Losowe miejsca
-            reservations.add(new Reservation(user, projection, seats2, 20.00 + (i % 10)));
+        for (User user : users) {
+            for (Projection projection : projections) {
+                seats = List.of(1, 2); // Przykładowe miejsca
+                reservations.add(new Reservation(
+                        user,
+                        projection,
+                        seats,
+                        25.00
+                ));
+            }
         }
         reservationRepository.saveAll(reservations);
     }

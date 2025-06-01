@@ -91,6 +91,17 @@ body {
     padding: 10px;
     border-bottom: 1px solid #dee2e6;
 }
+
+/*solid kolumns*/
+.list-table th,
+.list-table td {
+    width: 33%; /* solid kolumns */
+    max-width: 300px; /* max widh */
+    overflow: hidden; /* hide text when to long */
+    text-overflow: ellipsis; /* if to long then (...)*/
+    white-space: nowrap;
+}
+
 .list-table tr:hover {
     background-color: #f1f1f1;
 }
