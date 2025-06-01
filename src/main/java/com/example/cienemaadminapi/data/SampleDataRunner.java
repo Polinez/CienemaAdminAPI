@@ -44,7 +44,10 @@ public class SampleDataRunner implements CommandLineRunner{
         Movie movie1 = movieRepository.save(new Movie("Star Wars", "abcabc", "Tarantino", 120));
         Movie movie2 = movieRepository.save(new Movie("Harry Potter", "abcabc", "Python", 90));
         Movie movie3 = movieRepository.save(new Movie("Forrest Gump", "abcabc", "Allen", 70));
-
+        Movie movie4 = movieRepository.save(new Movie("A Very Long Movie Title That Exceeds Normal LengthA Very Long Movie Title That Exceeds Normal LengthA Very Long Movie Title That Exceeds Normal Length",
+            "A Very Long Movie Title That Exceeds Normal LengthA Very Long Movie Title That Exceeds Normal LengthA Very Long Movie Title That Exceeds Normal Length",
+            "A Very Long Movie Title That Exceeds Normal LengthA Very Long Movie Title That Exceeds Normal LengthA Very Long Movie Title That Exceeds Normal Length",
+            150));
         Projection projection1 = projectionRepository.save(new Projection(movie1, Date.valueOf("2025-07-15"), Time.valueOf("17:00:00"), 3));
         Projection projection2 = projectionRepository.save(new Projection(movie2, Date.valueOf("2025-05-28"), Time.valueOf("21:00:00"), 1));
         Projection projection3 = projectionRepository.save(new Projection(movie3, Date.valueOf("2025-06-05"), Time.valueOf("18:00:00"), 2));
