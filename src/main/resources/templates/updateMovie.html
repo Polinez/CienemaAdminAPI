@@ -36,7 +36,8 @@
                     <th>Tytuł</th>
                     <th>Reżyser</th>
                     <th>Opis</th>
-                    <th>Akcje</th>
+                    <th>Edytuj</th>
+                    <th>Usuń</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,10 +45,8 @@
                     <td th:text="${movie.title}"></td>
                     <td th:text="${movie.director}"></td>
                     <td th:text="${movie.description}"></td>
-                    <td class="action-buttons">
-                        <a th:href="@{'/admin/movies/edit/' + ${movie.id}}" class="btn btn-primary btn-sm">Edytuj</a>
-                        <button class="btn btn-danger btn-sm delete-btn" th:data-id="${movie.id}">Usuń</button>
-                    </td>
+                    <td><a th:href="@{'/admin/movies/edit/' + ${movie.id}}" class="btn btn-primary btn-sm">Edytuj</a></td>
+                    <td><button class="btn btn-danger btn-sm delete-btn" th:data-id="${movie.id}">Usuń</button></td>
                 </tr>
                 </tbody>
             </table>

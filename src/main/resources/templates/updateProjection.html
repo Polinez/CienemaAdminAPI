@@ -37,7 +37,8 @@
                     <th>Data seansu</th>
                     <th>Godzina rozpoczęcia</th>
                     <th>Sala</th>
-                    <th>Akcje</th>
+                    <th>Edytuj</th>
+                    <th>Usuń</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,8 +47,10 @@
                     <td th:text="${#dates.format(projection.date, 'yyyy-MM-dd')}">Data seansu</td>
                     <td th:text="${#dates.format(projection.startTime, 'HH:mm')}">Godzina</td>
                     <td th:text="${projection.roomNumber}">Sala</td>
-                    <td class="action-buttons">
+                    <td >
                         <a th:href="@{'/admin/projections/update/' + ${projection.id}}" class="btn btn-primary btn-sm">Edytuj</a>
+                    </td>
+                    <td >
                         <button class="btn btn-danger btn-sm delete-btn" th:data-id="${projection.id}">Usuń</button>
                     </td>
                 </tr>
