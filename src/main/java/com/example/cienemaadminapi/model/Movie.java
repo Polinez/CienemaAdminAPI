@@ -18,12 +18,13 @@ public class Movie {
     private Long id;
 
     private String title;
+
+    @Lob
     private String description;
     private String director;
     private int duration;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JoinColumn(name = "projectionId")
     private List<Projection> projections;
 
     public Movie() {
