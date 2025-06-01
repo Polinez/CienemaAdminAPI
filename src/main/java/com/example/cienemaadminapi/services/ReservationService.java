@@ -22,19 +22,6 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll();
-    }
-
-    public Reservation getReservationById(Long id) {
-        return reservationRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Rezerwacja o podanym ID nie istnieje: " + id));
-    }
-
-    public List<Reservation> getReservationsByProjectionId(Long projectionId) {
-        return reservationRepository.findByProjectionId(projectionId);
-    }
-
     //reservation count and revenue statistics
     public List<Reservation> getReservationsForDate(LocalDate date) {
         LocalDateTime startOfDay = date.atStartOfDay();
@@ -44,7 +31,9 @@ public class ReservationService {
     }
 
     public Page<Reservation> findReservationsWithPaginationAndSorting(Long projectionId, int offset, String field, String direction) {
-        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(field).ascending() : Sort.by(field).descending();
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(Sort.Order.desc(field).ignoreCase())
+                : Sort.by(Sort.Order.asc(field).ignoreCase());
         PageRequest pageRequest = PageRequest.of(offset, 5, sort);
         return reservationRepository.findByProjectionId(projectionId, pageRequest);
     }

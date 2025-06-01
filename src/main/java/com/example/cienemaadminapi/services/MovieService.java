@@ -45,24 +45,11 @@ public class MovieService {
         movieRepository.deleteById(id);
     }
 
-    //trying to make sorting methods
-    public List<Movie> findMoviesWithSorting(String field, String direction) {
-        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
-        return movieRepository.findAll(Sort.by(sortDirection, field));
-    }
-
-    public Page<Movie> findMoviesWithPagination(int offset, int pageSize){
-        Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize));
-        return movies;
-    }
-
-    public Page<Movie> findMoviesWithPaginationAndSorting(int offset,int pageSize,String field){
-        Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field)));
-        return movies;
-    }
 
     public Page<Movie> findMoviesWithPaginationAndSorting(int offset, String field, String direction) {
-        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(Sort.Order.desc(field).ignoreCase())
+                : Sort.by(Sort.Order.asc(field).ignoreCase());
         Page<Movie> movies = movieRepository.findAll(PageRequest.of(offset, 5, sort));
         return movies;
     }

@@ -69,30 +69,20 @@ public class ProjectionService {
                 .collect(Collectors.toSet());
     }
 
-    public Page<Projection> findFilteredProjections(int offset, String field, String direction, Integer roomFilter) {
-        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(field).ascending() : Sort.by(field).descending();
+    public Page<Projection> findFilteredProjections(int offset,
+                                                    String field,
+                                                    String direction,
+                                                    Integer roomFilter) {
+
+        Sort sort = direction.equalsIgnoreCase(Sort.Direction.ASC.name())
+                ? Sort.by(Sort.Order.desc(field).ignoreCase())
+                : Sort.by(Sort.Order.asc(field).ignoreCase());
         PageRequest pageable = PageRequest.of(offset, 5, sort);
 
         if (roomFilter != null) {
             return projectionRepository.findByRoomNumber(roomFilter, pageable);
-        }
-        else {
+        } else {
             return projectionRepository.findAll(pageable);
         }
-    }
-
-    public List<Projection> findProjectionWithSorting(String field){
-        return projectionRepository.findAll(Sort.by(Sort.Direction.ASC,field));
-    }
-
-    public Page<Projection> findProjectionsWithPagination(int offset, int pageSize){
-        Page<Projection> projections = projectionRepository.findAll(PageRequest.of(offset, pageSize));
-        return projections;
-    }
-
-    public Page<Projection> findProjectionsWithPaginationAndSorting(int offset, String field, String direction){
-        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
-        Page<Projection> projections = projectionRepository.findAll(PageRequest.of(offset, 5, sort));
-        return projections;
     }
 }

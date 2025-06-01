@@ -16,25 +16,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
-    }
-
-    public List<User> findUsersWithSorting(String field){
-        return userRepository.findAll(Sort.by(Sort.Direction.ASC,field));
-    }
-
-    public Page<User> findUsersWithPagination(int offset, int pageSize){
-        Page<User> users = userRepository.findAll(PageRequest.of(offset, pageSize));
-        return users;
-    }
-
     public Page<User> findUsersWithPaginationAndSorting(int offset, String field, String direction){
-        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(Sort.Order.desc(field).ignoreCase())
+                : Sort.by(Sort.Order.asc(field).ignoreCase());
         Page<User> users = userRepository.findAll(PageRequest.of(offset, 5, sort));
         return users;
     }
