@@ -34,10 +34,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/error", "/webjars/**", "/css/**", "/js/**", "/images/**").permitAll() // dostęp bez logowania
+                        .requestMatchers("/", "/error", "/webjars/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/admin/dashboard", true)
+                )
                 .logout(Customizer.withDefaults());
 
         return http.build();
